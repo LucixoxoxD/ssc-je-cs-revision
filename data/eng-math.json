@@ -3,12 +3,239 @@
   "order": 1,
   "title": "Engineering Mathematics",
   "icon": "📐",
-  "description": "Linear Algebra, Calculus, Probability, Statistics, Discrete Mathematics & Graph Theory.",
+  "description": "Discrete Mathematics, Graph Theory, Linear Algebra, Calculus & Probability.",
   "topics": [
-    { "id": "linear-algebra", "title": "Linear Algebra & Matrices", "status": "coming_soon" },
-    { "id": "calculus", "title": "Calculus & Maxima-Minima", "status": "coming_soon" },
-    { "id": "probability-statistics", "title": "Probability & Statistics", "status": "coming_soon" },
-    { "id": "discrete-mathematics", "title": "Discrete Mathematics & Set Theory", "status": "coming_soon" },
-    { "id": "graph-theory-math", "title": "Graph Theory & Combinatorics", "status": "coming_soon" }
+    {
+      "id": "eng-math-discrete-mathematics",
+      "title": "Discrete Mathematics",
+      "status": "done",
+      "explanation": "Discrete Mathematics forms the theoretical backbone of computer science, establishing formal mathematical structures used in algorithms, database theory, cryptography, and logic design. A set is an unordered collection of distinct elements, while relations establish links between elements of sets as subsets of Cartesian products $A \\times B$. Binary relations on a set $A$ possess fundamental properties including reflexivity (every element relates to itself), symmetry (two-way relationships), anti-symmetry (two-way relationships only hold for identical elements), and transitivity (chained relationships). An equivalence relation satisfies reflexivity, symmetry, and transitivity, partitioning a set into disjoint equivalence classes. A partial order (poset) satisfies reflexivity, anti-symmetry, and transitivity, enabling hierarchical structuring visualized through Hasse diagrams. When every pair of elements in a poset has a unique greatest lower bound (meet $\\wedge$) and least upper bound (join $\\vee$), the structure is termed a lattice. Functions map domain inputs uniquely to codomain targets and are categorized into injections (one-to-one), surjections (onto), and bijections (invertible). Propositional logic governs truth values using connectives $(\\neg, \\wedge, \\vee, \\to, \\leftrightarrow)$, where an implication $p \\to q$ is logically equivalent to its contrapositive $\\neg q \\to \\neg p$. First-order logic introduces universal $(\\forall)$ and existential $(\\exists)$ quantifiers. Combinatorics and the Pigeonhole Principle provide deterministic counting bounds, while recurrence relations model iterative processes solvable via characteristic roots and compact generating functions.",
+      "keyPoints": [
+        "Total Relations & Properties on an $n$-element set: Total possible relations = $2^{n^2}$. Number of reflexive relations = $2^{n(n-1)}$. Number of symmetric relations = $2^{n(n+1)/2}$. Number of reflexive and symmetric relations = $2^{n(n-1)/2}$.",
+        "Equivalence Relation & Partitioning: A relation is an equivalence relation if and only if it is reflexive, symmetric, and transitive. Every equivalence relation partitions the set into mutually disjoint equivalence classes whose union equals the original set.",
+        "Partial Order (Poset): A relation is a Partial Order (poset) if and only if it is reflexive, anti-symmetric, and transitive. Represented visually using Hasse diagrams where self-loops (reflexivity) and transitive edges are omitted.",
+        "Lattice Definition: A poset $(L, \\le)$ is a lattice if and only if every two elements $a, b \\in L$ have a unique greatest lower bound (GLB or meet, $a \\wedge b$) and a unique least upper bound (LUB or join, $a \\vee b$).",
+        "Function Counting Theorems: For $|A| = m$ and $|B| = n$: Total functions $A \\to B = n^m$. Injective (one-to-one) functions = $P(n, m) = \\frac{n!}{(n-m)!}$ (requires $n \\ge m$, else $0$). Bijective functions exist only when $m = n$, with total count = $n!$.",
+        "Logical Implication & Contrapositive: $p \\to q \\equiv \\neg p \\vee q$. The contrapositive $\\neg q \\to \\neg p$ is always logically equivalent to $p \\to q$. The converse ($q \\to p$) and inverse ($\\neg p \\to \\neg q$) are equivalent to each other, but NOT equivalent to the original conditional statement.",
+        "Quantifier Negation Laws: $\\neg(\\forall x \\, P(x)) \\equiv \\exists x \\, \\neg P(x)$ and $\\neg(\\exists x \\, P(x)) \\equiv \\forall x \\, \\neg P(x)$. Negating an implication inside a quantifier gives: $\\neg(\\forall x \\, (P(x) \\to Q(x))) \\equiv \\exists x \\, (P(x) \\wedge \\neg Q(x))$.",
+        "Pigeonhole Principle (PHP): If $n$ items are distributed into $k$ containers ($n > k$), at least one container must hold at least $\\lceil n/k \\rceil$ items. To guarantee at least $m$ items in one container, minimum items required = $k(m - 1) + 1$.",
+        "Inclusion-Exclusion Principle: For two sets: $|A \\cup B| = |A| + |B| - |A \\cap B|$. For three sets: $|A \\cup B \\cup C| = |A| + |B| + |C| - (|A \\cap B| + |B \\cap C| + |C \\cap A|) + |A \\cap B \\cap C|$.",
+        "Generating Functions: The ordinary generating function for sequence ${a_n}$ is $G(x) = \\sum_{n=0}^\\infty a_n x^n$. For constant sequence $a_n = 1$, $G(x) = \\frac{1}{1-x}$. For geometric sequence $a_n = r^n$, $G(x) = \\frac{1}{1-rx}$."
+      ],
+      "tables": [
+        {
+          "caption": "Comparison: Binary Relation Properties and Formulas on Set of Size $n$",
+          "headers": [
+            "Relation Type",
+            "Defining Mathematical Condition",
+            "Counting Formula ($|A|=n$)",
+            "Count for $n=3$"
+          ],
+          "rows": [
+            [
+              "Reflexive",
+              "$\\forall a \\in A, (a,a) \\in R$",
+              "$2^{n(n-1)}$",
+              "$2^{3 \\times 2} = 2^6 = 64$"
+            ],
+            [
+              "Symmetric",
+              "$\\forall a,b \\in A, (a,b) \\in R \\implies (b,a) \\in R$",
+              "$2^{n(n+1)/2}$",
+              "$2^{3 \\times 4 / 2} = 2^6 = 64$"
+            ],
+            [
+              "Reflexive & Symmetric",
+              "Both reflexive and symmetric simultaneously",
+              "$2^{n(n-1)/2}$",
+              "$2^{3 \\times 2 / 2} = 2^3 = 8$"
+            ],
+            [
+              "Anti-symmetric",
+              "$(a,b) \\in R \\land (b,a) \\in R \\implies a = b$",
+              "$2^n \\times 3^{n(n-1)/2}$",
+              "$2^3 \\times 3^3 = 8 \\times 27 = 216$"
+            ],
+            [
+              "Total Possible Relations",
+              "Any arbitrary subset of $A \\times A$",
+              "$2^{n^2}$",
+              "$2^9 = 512$"
+            ]
+          ]
+        },
+        {
+          "caption": "Logic Truth Table Variations: Conditional, Variations and Negation",
+          "headers": [
+            "Statement Form",
+            "Name / Relation",
+            "Equivalent Disjunctive Form",
+            "Truth Value when $p=T, q=F$"
+          ],
+          "rows": [
+            [
+              "$p \\to q$",
+              "Original Conditional",
+              "$\\neg p \\vee q$",
+              "False (Only case implication fails)"
+            ],
+            [
+              "$\\neg q \\to \\neg p$",
+              "Contrapositive",
+              "$\\neg(\\neg q) \\vee \\neg p \\equiv \\neg p \\vee q$",
+              "False (Identical to $p \\to q$)"
+            ],
+            [
+              "$q \\to p$",
+              "Converse",
+              "$\\neg q \\vee p$",
+              "True (Not equivalent to $p \\to q$)"
+            ],
+            [
+              "$\\neg p \\to \\neg q$",
+              "Inverse",
+              "$p \\vee \\neg q$",
+              "True (Equivalent to Converse)"
+            ],
+            [
+              "$\\neg(p \\to q)$",
+              "Negation of Implication",
+              "$p \\wedge \\neg q$",
+              "True (Opposite of $p \\to q$)"
+            ]
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "question": "Let set $A = \\{1, 2, 3\\}$. A relation $R$ on $A$ is defined as $R = \\{(1,1), (2,2), (3,3), (1,2), (2,1), (2,3)\\}$. Determine whether $R$ is an equivalence relation, a partial order, or neither.",
+          "steps": [
+            "Step 1: Verify Reflexivity: For $R$ to be reflexive, $(x,x) \\in R$ for all $x \\in \\{1, 2, 3\\}$. Since $(1,1), (2,2), (3,3) \\in R$, $R$ is reflexive.",
+            "Step 2: Verify Symmetry: For $R$ to be symmetric, $(x,y) \\in R \\implies (y,x) \\in R$. We have $(2,3) \\in R$, but $(3,2) \\notin R$. Hence $R$ fails symmetry. Since equivalence requires symmetry, $R$ is NOT an equivalence relation.",
+            "Step 3: Verify Anti-symmetry: For $R$ to be anti-symmetric, $(x,y) \\in R \\land (y,x) \\in R \\implies x = y$. Here $(1,2) \\in R$ and $(2,1) \\in R$, yet $1 \\neq 2$. Hence $R$ fails anti-symmetry. Since a poset requires anti-symmetry, $R$ is NOT a partial order.",
+            "Step 4: Verify Transitivity: We have $(1,2) \\in R$ and $(2,3) \\in R$, but $(1,3) \\notin R$. Hence $R$ fails transitivity as well."
+          ],
+          "answer": "$R$ is reflexive, but neither symmetric, anti-symmetric, nor transitive. Thus $R$ is neither an equivalence relation nor a partial order."
+        },
+        {
+          "question": "A drawer contains $10$ red socks, $10$ blue socks, and $10$ black socks. What is the minimum number of socks that must be drawn at random without looking to guarantee that at least $4$ socks of the same color are selected?",
+          "steps": [
+            "Step 1: Identify the pigeonhole parameters: The categories (pigeonholes $k$) are the $3$ colors: Red, Blue, Black ($k = 3$). The target frequency per color is $m = 4$.",
+            "Step 2: Apply the worst-case principle: In the worst-case scenario, you draw as many socks as possible without reaching $4$ of any single color. That corresponds to drawing exactly $3$ of each of the $3$ colors: $3 \\times 3 = 9$ socks.",
+            "Step 3: Add $1$ additional sock: Drawing the $10^{\\text{th}}$ sock forces one of the three color groups to reach $4$ socks.",
+            "Step 4: Apply the generalized Pigeonhole Principle formula: $N = k(m - 1) + 1 = 3(4 - 1) + 1 = 3(3) + 1 = 10$."
+          ],
+          "answer": "Minimum $10$ socks must be drawn to guarantee at least $4$ socks of the same color."
+        },
+        {
+          "question": "Solve the first-order linear recurrence relation $a_n = 3a_{n-1} + 2$ for $n \\ge 1$, given the initial condition $a_0 = 1$. Find the closed-form expression for $a_n$ and compute $a_3$.",
+          "steps": [
+            "Step 1: Compute initial consecutive terms: $a_0 = 1$; $a_1 = 3(1) + 2 = 5$; $a_2 = 3(5) + 2 = 17$; $a_3 = 3(17) + 2 = 53$.",
+            "Step 2: Unfold the recurrence using repeated substitution: $a_n = 3^n a_0 + 2(3^{n-1} + 3^{n-2} + \\dots + 3^0)$.",
+            "Step 3: Evaluate the geometric progression sum: $\\sum_{i=0}^{n-1} 3^i = \\frac{3^n - 1}{3 - 1} = \\frac{3^n - 1}{2}$.",
+            "Step 4: Substitute back: $a_n = 3^n(1) + 2\\left(\\frac{3^n - 1}{2}\\right) = 3^n + 3^n - 1 = 2 \\cdot 3^n - 1$.",
+            "Step 5: Verify for $n = 3$: $a_3 = 2 \\cdot 3^3 - 1 = 2(27) - 1 = 54 - 1 = 53$. Calculation matches exactly."
+          ],
+          "answer": "Closed-form expression: $a_n = 2 \\cdot 3^n - 1$, and $a_3 = 53$."
+        }
+      ],
+      "traps": [
+        "Trap 1 (Anti-symmetric vs Symmetric): Anti-symmetric does NOT mean \"not symmetric\". A relation can be both symmetric and anti-symmetric (e.g., identity relation $R = \\{(a,a)\\}$ on any set), or neither. Never treat them as complementary opposites.",
+        "Trap 2 (Implication Truth Trap): The implication $p \\to q$ is False in ONLY ONE situation: when hypothesis $p$ is True and conclusion $q$ is False ($T \\to F \\equiv F$). If $p$ is False, the implication $p \\to q$ is always vacuously True regardless of $q$.",
+        "Trap 3 (Converse vs Contrapositive): A statement is logically equivalent ONLY to its contrapositive ($\\neg q \\to \\neg p$), NOT to its converse ($q \\to p$) or inverse ($\\neg p \\to \\neg q$). Mistaking the converse for an equivalent statement is a frequent exam distractor.",
+        "Trap 4 (Reflexive Counting Power): On an $n$-element set, reflexive relations require all $n$ diagonal pairs $(a,a)$. The remaining $n^2 - n$ pairs each have $2$ choices (in or out), giving $2^{n(n-1)}$ total relations, NOT $2^{n^2 - 1}$.",
+        "Trap 5 (Lattice Meet/Join Uniqueness): In a poset, every pair of elements must possess a UNIQUE greatest lower bound and UNIQUE least upper bound to qualify as a lattice. If two minimal upper bounds exist without one being less than the other, it is NOT a lattice."
+      ],
+      "practice": [
+        {
+          "q": "If a set $A$ contains $4$ elements, what is the total number of distinct reflexive relations that can be defined on $A$?",
+          "options": [
+            "$2^4 = 16$",
+            "$2^{12} = 4096$",
+            "$2^{16} = 65536$",
+            "$2^6 = 64$"
+          ],
+          "answer": 1,
+          "why": "The formula for the number of reflexive relations on an $n$-element set is $2^{n(n-1)}$. For $n = 4$, $2^{4(4-1)} = 2^{12} = 4096$."
+        },
+        {
+          "q": "Which of the following compound propositions is logically equivalent to the conditional statement $p \\to q$?",
+          "options": [
+            "$\\neg p \\to \\neg q$",
+            "$q \\to p$",
+            "$\\neg q \\to \\neg p$",
+            "$p \\wedge \\neg q$"
+          ],
+          "answer": 2,
+          "why": "A conditional statement $p \\to q$ is always logically equivalent to its contrapositive $\\neg q \\to \\neg p$."
+        },
+        {
+          "q": "A partially ordered set (poset) $(L, \\le)$ is defined as a lattice if and only if every pair of elements in $L$ has:",
+          "options": [
+            "A unique greatest lower bound (GLB) and a unique least upper bound (LUB)",
+            "Only a unique upper bound",
+            "A linear ordering such that for all $a, b$, either $a \\le b$ or $b \\le a$",
+            "An inverse element with respect to relation $\\le$"
+          ],
+          "answer": 0,
+          "why": "By definition, a lattice is a poset where every pair of elements possesses a unique greatest lower bound (meet) and a unique least upper bound (join)."
+        },
+        {
+          "q": "In an examination hall of $367$ students, what is the minimum number of students who are guaranteed to share the same birthday (day and month, assuming a non-leap year of $365$ days)?",
+          "options": [
+            "$1$",
+            "$2$",
+            "$3$",
+            "$4$"
+          ],
+          "answer": 1,
+          "why": "By the Pigeonhole Principle, distributing $N = 367$ students into $k = 365$ birthday slots guarantees that at least $\\lceil 367 / 365 \\rceil = 2$ students share a birthday."
+        },
+        {
+          "q": "What is the negation of the first-order logic statement: $\\forall x \\, (P(x) \\to Q(x))$?",
+          "options": [
+            "$\\forall x \\, (P(x) \\wedge \\neg Q(x))$",
+            "$\\exists x \\, (\\neg P(x) \\to \\neg Q(x))$",
+            "$\\exists x \\, (P(x) \\to \\neg Q(x))$",
+            "$\\exists x \\, (P(x) \\wedge \\neg Q(x))$"
+          ],
+          "answer": 3,
+          "why": "$\\neg(\\forall x \\, (P(x) \\to Q(x))) \\equiv \\exists x \\, \\neg(P(x) \\to Q(x)) \\equiv \\exists x \\, (P(x) \\wedge \\neg Q(x))$."
+        },
+        {
+          "q": "If set $A$ has $3$ elements and set $B$ has $4$ elements, how many one-to-one (injective) functions can be defined from $A$ to $B$?",
+          "options": [
+            "$12$",
+            "$24$",
+            "$64$",
+            "$81$"
+          ],
+          "answer": 1,
+          "why": "The number of injective functions from an $m$-element set to an $n$-element set ($n \\ge m$) is $P(n, m) = \\frac{n!}{(n-m)!} = P(4, 3) = \\frac{4!}{1!} = 24$."
+        },
+        {
+          "q": "Consider the recurrence relation $a_n = 5a_{n-1} - 6a_{n-2}$ with $a_0 = 1$ and $a_1 = 4$. What are the characteristic roots of this recurrence?",
+          "options": [
+            "$r = 2$ and $r = 3$",
+            "$r = -2$ and $r = -3$",
+            "$r = 1$ and $r = 6$",
+            "$r = 5$ and $r = 6$"
+          ],
+          "answer": 0,
+          "why": "The characteristic equation is $r^2 - 5r + 6 = 0$. Factoring gives $(r - 2)(r - 3) = 0$, so the roots are $r = 2$ and $r = 3$."
+        },
+        {
+          "q": "What is the ordinary generating function for the geometric sequence $a_n = 2^n$ for $n \\ge 0$ (i.e., $1, 2, 4, 8, \\dots$)?",
+          "options": [
+            "$\\frac{1}{1 - x}$",
+            "$\\frac{1}{1 + 2x}$",
+            "$\\frac{1}{1 - 2x}$",
+            "$\\frac{2}{1 - x}$"
+          ],
+          "answer": 2,
+          "why": "The ordinary generating function for $a_n = r^n$ is $\\sum_{n=0}^\\infty (rx)^n = \\frac{1}{1 - rx}$. With $r = 2$, it evaluates to $\\frac{1}{1 - 2x}$."
+        }
+      ]
+    }
   ]
 }

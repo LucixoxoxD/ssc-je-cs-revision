@@ -11,7 +11,7 @@ window.SUBJECTS_MANIFEST = [
         "id": "eng-math-discrete-mathematics",
         "title": "Discrete Mathematics",
         "syllabus": "Sets, relations, functions, partial orders, lattices, propositional and first-order logic, combinatorics, counting, recurrence relations, generating functions.",
-        "status": "pending"
+        "status": "done"
       },
       {
         "id": "eng-math-graph-theory",
