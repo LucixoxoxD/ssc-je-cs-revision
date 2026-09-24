@@ -43,7 +43,7 @@
         "id": "digital-logic-boolean-algebra",
         "title": "Boolean Algebra",
         "syllabus": "Minimization of Boolean expressions, logic gates, canonical SOP/POS forms, Karnaugh maps (K-maps), Quine-McCluskey method.",
-        "status": "pending"
+        "status": "done"
       },
       {
         "id": "digital-logic-combinational-circuits",
