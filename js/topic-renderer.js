@@ -62,7 +62,7 @@
     }
   }
 
-  // Format explanation text into structured, scannable concept blocks
+  // Format explanation text into individual mini-accordion concept cards
   function formatExplanation(text) {
     if (!text) return '';
     
@@ -70,10 +70,16 @@
     const sections = text.split(/(?=\*\*\d+\.\s+[^*]+\*\*)/g);
     
     if (sections.length <= 1) {
-      return `<div class="concept-card"><div class="concept-body">${formatParagraphs(text)}</div></div>`;
+      return `
+        <div class="concept-accordion-card is-open" data-card-idx="0">
+          <div class="concept-accordion-body" style="display: block;">
+            ${formatParagraphs(text)}
+          </div>
+        </div>
+      `;
     }
 
-    return sections.map((sec) => {
+    return sections.map((sec, idx) => {
       sec = sec.trim();
       if (!sec) return '';
       const match = sec.match(/^\*\*(\d+)\.\s+([^*]+)\*\*\s*([\s\S]*)$/);
@@ -81,19 +87,29 @@
         const num = match[1];
         const title = match[2].trim();
         const content = match[3].trim();
+        const isOpen = idx < 2; // First 1-2 open by default, remaining collapsed
         return `
-          <div class="concept-card">
-            <div class="concept-header">
-              <span class="concept-num-badge">${num}</span>
-              <h3 class="concept-title">${title}</h3>
-            </div>
-            <div class="concept-body">
+          <div class="concept-accordion-card ${isOpen ? 'is-open' : 'is-collapsed'}" data-card-idx="${idx}">
+            <button class="concept-accordion-header" type="button" aria-expanded="${isOpen ? 'true' : 'false'}" aria-controls="concept-body-${idx}">
+              <div class="concept-header-left">
+                <span class="concept-num-badge">${num}</span>
+                <h3 class="concept-title">${title}</h3>
+              </div>
+              <span class="concept-accordion-icon" aria-hidden="true">${isOpen ? '▼' : '▶'}</span>
+            </button>
+            <div class="concept-accordion-body" id="concept-body-${idx}" style="display: ${isOpen ? 'block' : 'none'};">
               ${formatParagraphs(content)}
             </div>
           </div>
         `;
       } else {
-        return `<div class="concept-card"><div class="concept-body">${formatParagraphs(sec)}</div></div>`;
+        return `
+          <div class="concept-accordion-card is-open" data-card-idx="${idx}">
+            <div class="concept-accordion-body" style="display: block;">
+              ${formatParagraphs(sec)}
+            </div>
+          </div>
+        `;
       }
     }).join('');
   }
@@ -134,15 +150,29 @@
     return result.join('');
   }
 
+  // Curated 8–16 word high-impact summaries for revision hero
+  const TOPIC_SUMMARIES = {
+    'digital-logic-boolean-algebra': 'Boolean laws, logic gates, canonical SOP/POS, K-maps, and Quine–McCluskey minimization.',
+    'digital-logic-combinational-circuits': 'Adders, subtractors, multiplexers, demultiplexers, decoders, encoders, and arithmetic logic units.',
+    'digital-logic-sequential-circuits': 'Latches, flip-flops (SR, JK, D, T), counters, and shift registers.',
+    'digital-logic-number-representations': 'Fixed-point, floating-point representations, IEEE 754 standard, 1\'s and 2\'s complement.',
+    'eng-math-discrete-mathematics': 'Sets, relations, functions, posets, lattices, logic, combinatorics, and recurrence relations.',
+    'eng-math-graph-theory': 'Connectivity, matching, coloring, planarity, isomorphism, Euler trails and Hamiltonian cycles.',
+    'eng-math-linear-algebra': 'Matrices, determinants, linear systems, eigenvalues, eigenvectors, and LU decomposition.',
+    'eng-math-calculus-probability': 'Limits, continuity, differentiability, maxima/minima, mean value theorems, and probability distributions.',
+    'os-process-management': 'Process states, PCB, CPU scheduling, IPC, synchronization primitives, and deadlocks.'
+  };
+
   function getOneLineSummary(topic) {
+    if (TOPIC_SUMMARIES[topic.id]) {
+      return TOPIC_SUMMARIES[topic.id];
+    }
     if (topic.syllabus) {
-      return `<strong>Syllabus Scope:</strong> ${topic.syllabus}`;
+      const parts = topic.syllabus.split(/[;,.]/).map(p => p.trim()).filter(Boolean);
+      const topPhrases = parts.slice(0, 5).join(', ');
+      return topPhrases.length > 90 ? topPhrases.substring(0, 87) + '...' : topPhrases + '.';
     }
-    if (topic.explanation) {
-      const firstSentence = topic.explanation.split('.')[0] + '.';
-      return formatTextWithCode(firstSentence);
-    }
-    return `Core high-yield revision points and exam-tested formulas for SSC JE / IMD Paper-I.`;
+    return 'Core high-yield concepts and exam-tested formulas for SSC Paper-I.';
   }
 
   const TopicRenderer = {
@@ -251,6 +281,12 @@
               <p class="topic-summary-line">
                 ${getOneLineSummary(topic)}
               </p>
+              ${topic.syllabus ? `
+                <details class="hero-syllabus-details">
+                  <summary class="hero-syllabus-summary">Official Syllabus Scope ▾</summary>
+                  <div class="hero-syllabus-content">${escapeHtml(topic.syllabus)}</div>
+                </details>
+              ` : ''}
             </div>
 
             <div class="hero-action-area">
@@ -272,7 +308,7 @@
           </div>
         </header>
 
-        <!-- 2. STICKY TOP REVISION BAR (Scrolls & highlights active section) -->
+        <!-- 2. STICKY TOP REVISION BAR (Remains directly below site-header) -->
         <nav class="sticky-revision-bar" id="revision-sticky-bar" aria-label="Revision Section Navigation">
           <div class="sticky-bar-inner">
             <div class="nav-links-scroll" id="sticky-nav-scroll">
@@ -367,15 +403,15 @@
           <!-- MAIN CONTENT COLUMN (Left on desktop: Detailed Notes, Tables, Examples, MCQs) -->
           <div class="topic-main-column">
             
-            <!-- SECTION 1: Detailed Concepts / Explanation -->
+            <!-- SECTION 1: Detailed Concepts / Explanation (Mini-Accordions) -->
             <section class="topic-section" id="section-overview">
               <div class="section-header-row">
                 <h2 class="topic-section-title">
                   <span class="section-icon">📖</span> Detailed Concepts & Notes
                 </h2>
-                <button class="btn-section-toggle" id="btn-toggle-explanation" type="button" aria-expanded="true">
-                  <span class="toggle-icon">▾</span>
-                  <span class="toggle-text">Collapse Notes</span>
+                <button class="btn-section-toggle" id="btn-toggle-explanation" type="button" aria-expanded="false">
+                  <span class="toggle-icon">▸</span>
+                  <span class="toggle-text">Expand All</span>
                 </button>
               </div>
               <div class="topic-explanation-text" id="explanation-body">
@@ -641,35 +677,71 @@
     const printBtn = document.getElementById('btn-print-topic');
     if (printBtn) {
       printBtn.addEventListener('click', () => {
-        // Expand explanation and MCQs before printing
-        const expBody = document.getElementById('explanation-body');
-        if (expBody) expBody.style.display = 'block';
+        // Expand all accordions and MCQs before printing
+        document.querySelectorAll('.concept-accordion-card').forEach(c => {
+          c.classList.add('is-open');
+          c.classList.remove('is-collapsed');
+          const body = c.querySelector('.concept-accordion-body');
+          if (body) body.style.display = 'block';
+        });
         document.querySelectorAll('.mcq-explanation-box').forEach(b => b.classList.add('visible'));
         window.print();
       });
     }
 
-    // 4. Collapse / Expand Detailed Notes
-    const toggleExpBtn = document.getElementById('btn-toggle-explanation');
-    const expBody = document.getElementById('explanation-body');
-    if (toggleExpBtn && expBody) {
-      toggleExpBtn.addEventListener('click', () => {
-        const isExpanded = toggleExpBtn.getAttribute('aria-expanded') === 'true';
-        if (isExpanded) {
-          expBody.style.display = 'none';
-          toggleExpBtn.setAttribute('aria-expanded', 'false');
-          toggleExpBtn.querySelector('.toggle-icon').textContent = '▸';
-          toggleExpBtn.querySelector('.toggle-text').textContent = 'Expand Notes';
-        } else {
-          expBody.style.display = 'block';
-          toggleExpBtn.setAttribute('aria-expanded', 'true');
-          toggleExpBtn.querySelector('.toggle-icon').textContent = '▾';
-          toggleExpBtn.querySelector('.toggle-text').textContent = 'Collapse Notes';
-        }
+    // 4. Individual Concept Accordions & Section Expand/Collapse All
+    const accordionCards = document.querySelectorAll('.concept-accordion-card');
+    accordionCards.forEach(card => {
+      const headerBtn = card.querySelector('.concept-accordion-header');
+      const body = card.querySelector('.concept-accordion-body');
+      const icon = card.querySelector('.concept-accordion-icon');
+      if (headerBtn && body) {
+        headerBtn.addEventListener('click', () => {
+          const isCurrentlyOpen = headerBtn.getAttribute('aria-expanded') === 'true';
+          const newState = !isCurrentlyOpen;
+          headerBtn.setAttribute('aria-expanded', newState ? 'true' : 'false');
+          card.classList.toggle('is-open', newState);
+          card.classList.toggle('is-collapsed', !newState);
+          body.style.display = newState ? 'block' : 'none';
+          if (icon) icon.textContent = newState ? '▼' : '▶';
+
+          if (newState && !body.querySelector('.katex')) {
+            renderMath(body);
+          }
+        });
+      }
+    });
+
+    const toggleAllBtn = document.getElementById('btn-toggle-explanation');
+    if (toggleAllBtn) {
+      toggleAllBtn.addEventListener('click', () => {
+        const isAllExpanded = toggleAllBtn.getAttribute('aria-expanded') === 'true';
+        const targetState = !isAllExpanded;
+        toggleAllBtn.setAttribute('aria-expanded', targetState ? 'true' : 'false');
+        const toggleText = toggleAllBtn.querySelector('.toggle-text');
+        const toggleIcon = toggleAllBtn.querySelector('.toggle-icon');
+        if (toggleText) toggleText.textContent = targetState ? 'Collapse All' : 'Expand All';
+        if (toggleIcon) toggleIcon.textContent = targetState ? '▾' : '▸';
+
+        accordionCards.forEach(card => {
+          const headerBtn = card.querySelector('.concept-accordion-header');
+          const body = card.querySelector('.concept-accordion-body');
+          const icon = card.querySelector('.concept-accordion-icon');
+          if (headerBtn && body) {
+            headerBtn.setAttribute('aria-expanded', targetState ? 'true' : 'false');
+            card.classList.toggle('is-open', targetState);
+            card.classList.toggle('is-collapsed', !targetState);
+            body.style.display = targetState ? 'block' : 'none';
+            if (icon) icon.textContent = targetState ? '▼' : '▶';
+            if (targetState && !body.querySelector('.katex')) {
+              renderMath(body);
+            }
+          }
+        });
       });
     }
 
-    // 5. Sticky Nav Bar Scroll Spy & Click Navigation
+    // 5. Sticky Nav Bar Smooth Scroll with Exact Header Offset
     const navLinks = document.querySelectorAll('.revision-nav-link');
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
@@ -679,7 +751,20 @@
         if (targetEl) {
           navLinks.forEach(l => l.classList.remove('active'));
           link.classList.add('active');
-          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          const headerEl = document.querySelector('.site-header');
+          const headerHeight = headerEl ? headerEl.offsetHeight : 64;
+          const stickyBar = document.getElementById('revision-sticky-bar');
+          const stickyBarHeight = stickyBar ? stickyBar.offsetHeight : 44;
+          const totalOffset = headerHeight + stickyBarHeight + 16;
+
+          const elementPosition = targetEl.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - totalOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
         }
       });
     });
@@ -710,7 +795,7 @@
           }
         });
       }, {
-        rootMargin: '-80px 0px -55% 0px',
+        rootMargin: '-120px 0px -55% 0px',
         threshold: 0.1
       });
 
