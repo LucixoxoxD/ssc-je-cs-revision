@@ -241,38 +241,38 @@
       "id": "eng-math-graph-theory",
       "title": "Graph Theory",
       "status": "done",
-      "explanation": "Graph Theory analyzes networks of vertices (nodes) connected by edges (links), providing fundamental models for networks, routing, compilers, and circuit topology.\n\n**Handshaking Lemma & Degree Parity**\nFor any undirected graph $G = (V, E)$, the sum of degrees of all vertices equals twice the number of edges: $\\sum_{v \\in V} \\text{deg}(v) = 2E$. As a direct consequence, the number of vertices with odd degree is always even.\n\n**Connectivity, Cuts & Whitney's Theorem**\nA graph is connected if a path exists between every pair of vertices. A cut-vertex (articulation point) increases connected components upon removal; a cut-edge (bridge) is an edge whose deletion disconnects the graph. Vertex connectivity $\\kappa(G)$ is the minimum vertices removed to disconnect $G$, and edge connectivity $\\lambda(G)$ is the minimum edges removed. Whitney's Theorem establishes the fundamental hierarchy: $\\kappa(G) \\le \\lambda(G) \\le \\delta(G)$, where $\\delta(G)$ is the minimum vertex degree.\n\n**Eulerian Trails vs Hamiltonian Cycles**\nAn **Euler Trail** visits every edge exactly once (requires a connected graph with exactly 0 or 2 odd-degree vertices). An **Euler Circuit** is a closed Euler trail returning to the start (requires connected graph where *every* vertex has an even degree). In contrast, a **Hamiltonian Path / Cycle** visits every *vertex* exactly once (an NP-complete problem in general graphs, guaranteed if $\\text{deg}(v) \\ge n/2$ by Dirac's theorem).\n\n**Planarity & Euler's Formula**\nA planar graph can be embedded in the plane with no crossing edges. For any connected planar graph: $V - E + F = 2$ (where $F$ includes the outer unbounded face). Standard simple planar graphs ($V \\ge 3$) satisfy $E \\le 3V - 6$. Triangle-free planar graphs (such as bipartite planar graphs) satisfy $E \\le 2V - 4$. Kuratowski's Theorem: a graph is planar iff it contains no subgraph homeomorphic to $K_5$ or $K_{3,3}$.\n\n**Graph Coloring & Matching**\nThe chromatic number $\\chi(G)$ is the minimum colors needed to color vertices so adjacent vertices differ in color. Trees and bipartite graphs have $\\chi = 2$; odd cycles have $\\chi = 3$; complete graphs have $\\chi(K_n) = n$. The Four Color Theorem guarantees $\\chi(G) \\le 4$ for all planar graphs. A matching is a set of independent edges without shared vertices; a perfect matching covers all vertices ($|M| = V/2$, requiring an even vertex count).",
+      "explanation": "Graph Theory models pairwise relationships between objects using vertices (nodes) and edges (connections). For SSC Paper-I, focus on standard formulas, degree rules, and direct recognition of graph properties.\\n\\n**1. Degree Basics & Handshaking Lemma**\\nThe degree of a vertex $\\\\text{deg}(v)$ is the number of edges incident to it (a self-loop counts twice). The Handshaking Lemma states that the sum of all vertex degrees equals twice the number of edges: $\\\\sum_{v \\\\in V} \\\\text{deg}(v) = 2E$. Core exam deduction: in every graph, the count of vertices with odd degree is always even.\\n\\n**2. Connectivity, Cut-Vertices & Bridges**\\nA graph is connected if every pair of vertices has a connecting path. A **cut-vertex** (articulation point) is a vertex whose removal increases the number of connected components. A **bridge** (cut-edge) is an edge whose removal disconnects the graph. Basic connectivity relationship: vertex connectivity $\\\\le$ edge connectivity $\\\\le$ minimum degree ($\\\\kappa \\\\le \\\\lambda \\\\le \\\\delta$).\\n\\n**3. Eulerian vs Hamiltonian Graphs**\\nAn **Euler Trail** (path) visits every edge exactly once; it exists in a connected graph if and only if **exactly 0 or 2 vertices have odd degree**. An **Euler Circuit** is a closed Euler trail returning to the start; it exists if and only if **all vertices have even degrees**.\\nA **Hamiltonian Path** visits every vertex exactly once, while a **Hamiltonian Cycle** returns to the starting vertex. Unlike Eulerian graphs, there is no simple degree-parity rule. Dirac\\'s condition ($\\\\text{deg}(v) \\\\ge n/2$) and Ore\\'s condition ($\\\\text{deg}(u) + \\\\text{deg}(v) \\\\ge n$) are **sufficient conditions** for a simple graph to be Hamiltonian, but not necessary.\\n\\n**4. Planar Graphs & Euler\\'s Formula**\\nA planar graph can be drawn in a plane such that no two edges cross. For any connected planar graph, Euler\\'s formula states: $V - E + F = 2$, where $F$ includes the single outer unbounded face.\\nFor simple planar graphs with $V \\\\ge 3$: $E \\\\le 3V - 6$. For triangle-free (such as bipartite) simple planar graphs with $V \\\\ge 3$: $E \\\\le 2V - 4$. Minimal non-planar benchmark graphs are $K_5$ ($V=5, E=10$) and $K_{3,3}$ ($V=6, E=9$).\\n\\n**5. Graph Coloring & Matching**\\nThe **chromatic number** $\\\\chi(G)$ is the minimum number of colors needed to color vertices so that no two adjacent vertices share the same color. Standard values: Trees $\\\\chi = 2$; Bipartite graphs $\\\\chi = 2$; Even cycles $\\\\chi = 2$; Odd cycles $\\\\chi = 3$; Complete graphs $\\\\chi(K_n) = n$. Planar graphs require at most $4$ colors ($\\\\chi \\\\le 4$).\\nA **matching** is a set of edges without common endpoints. A **perfect matching** covers every vertex; it contains exactly $|V|/2$ edges and is only possible when $|V|$ is an even integer.\\n\\n**6. Graph Isomorphism**\\nTwo graphs $G_1$ and $G_2$ are isomorphic ($G_1 \\\\cong G_2$) if there is a structure-preserving bijection between their vertex sets. Invariants: isomorphic graphs must have the same number of vertices, edges, degree sequence, and cycles. Matching degree sequences is a necessary condition, but not sufficient.",
       "keyPoints": [
-        "Handshaking Lemma: $\\sum_{v \\in V} \\text{deg}(v) = 2E$. Key exam deduction: in any graph, the count of vertices with odd degree must be even.",
-        "Euler Circuit vs Trail: Connected graph has an Euler Circuit $\\iff$ ALL vertices have even degrees. It has an open Euler Trail $\\iff$ EXACTLY 2 vertices have odd degrees.",
-        "Hamiltonian Sufficient Conditions: Dirac's Theorem: in a simple graph with $n \\ge 3$, if $\\text{deg}(v) \\ge n/2$ for all $v$, $G$ is Hamiltonian. Ore's Theorem: if $\\text{deg}(u) + \\text{deg}(v) \\ge n$ for all non-adjacent pairs, $G$ is Hamiltonian.",
-        "Euler's Planar Formula: $V - E + F = 2$ for any connected planar graph (remember: $F$ includes the 1 outer unbounded face).",
-        "Planar Edge Boundaries: For $V \\ge 3$: $E \\le 3V - 6$. For triangle-free (or bipartite) planar graphs: $E \\le 2V - 4$. Every planar graph has at least one vertex with degree $\\le 5$.",
-        "Non-Planar Benchmarks (Kuratowski): Complete graph $K_5$ ($V=5, E=10$) and complete bipartite graph $K_{3,3}$ ($V=6, E=9$) are the minimal non-planar graphs.",
-        "Chromatic Number $\\chi(G)$ Rules: Tree / Bipartite $\\implies \\chi = 2$. Complete graph $K_n \\implies \\chi = n$. Cycle $C_n \\implies \\chi = 2$ ($n$ even), $\\chi = 3$ ($n$ odd). Planar graph $\\implies \\chi \\le 4$.",
-        "Whitney's Connectivity Inequality: $\\kappa(G) \\le \\lambda(G) \\le \\delta(G)$ (Vertex connectivity $\\le$ Edge connectivity $\\le$ Minimum degree).",
-        "Perfect Matching: Requires an even number of vertices ($|V|$ must be even). Contains exactly $|V|/2$ edges with no shared endpoints.",
-        "Isomorphism Invariants: Isomorphic graphs must have identical $|V|$, $|E|$, degree sequences, and cycle lengths. Identical degree sequences is necessary, but NOT sufficient."
+        "Handshaking Lemma: $\\\\sum \\\\text{deg}(v) = 2E$. In any graph, the number of odd-degree vertices must be even.",
+        "Euler Circuit Condition: A connected graph has a closed Euler circuit $\\\\iff$ ALL vertex degrees are even.",
+        "Euler Trail (Path) Condition: A connected graph has an open Euler trail $\\\\iff$ EXACTLY 2 vertices have odd degree (path starts at one and ends at the other).",
+        "Hamiltonian Sufficient Conditions: Dirac\\'s condition ($\\\\text{deg}(v) \\\\ge n/2$) and Ore\\'s condition ($\\\\text{deg}(u) + \\\\text{deg}(v) \\\\ge n$) are sufficient (not necessary) tests for a simple graph with $n \\\\ge 3$ to be Hamiltonian.",
+        "Euler\\'s Planar Formula: $V - E + F = 2$ for every connected planar graph ($F$ includes the 1 outer unbounded face).",
+        "Simple Planar Edge Bounds: For simple planar graphs with $V \\\\ge 3$: $E \\\\le 3V - 6$. For triangle-free (or bipartite) simple planar graphs: $E \\\\le 2V - 4$.",
+        "Kuratowski\\'s Benchmark Graphs: Complete graph $K_5$ ($V=5, E=10$) and complete bipartite graph $K_{3,3}$ ($V=6, E=9$) are the two classic minimal non-planar graphs.",
+        "Standard Chromatic Numbers $\\\\chi(G)$: Bipartite graphs and Trees $= 2$; Cycle $C_n = 2$ ($n$ even), $3$ ($n$ odd); Complete graph $K_n = n$; Planar graphs $\\\\le 4$.",
+        "Perfect Matching Parity Rule: A perfect matching requires an even number of vertices ($|V|$ must be even) and contains exactly $|V|/2$ edges.",
+        "Isomorphism Invariants: Isomorphic graphs must have identical $|V|$, $|E|$, and degree sequences. Identical degree sequences is necessary, but NOT sufficient."
       ],
       "tables": [
         {
-          "caption": "Comparison: Properties of Standard Graph Families",
+          "caption": "Summary: Properties of Standard Graph Families",
           "headers": [
             "Graph Family",
             "Vertices ($V$)",
             "Edges ($E$)",
             "Chromatic No. ($\\chi$)",
             "Planar?",
-            "Eulerian Circuit?"
+            "Euler Circuit?"
           ],
           "rows": [
             [
               "Complete Graph $K_n$",
               "$n$",
-              "$\\frac{n(n-1)}{2}$",
+              "$\\\\frac{n(n-1)}{2}$",
               "$n$",
-              "Yes ($n \\le 4$)",
-              "Yes (if $n$ is odd, $n \\ge 3$)"
+              "Yes ($n \\\\le 4$)",
+              "Yes (if $n$ is odd, $n \\\\ge 3$)"
             ],
             [
               "Cycle Graph $C_n$",
@@ -287,16 +287,16 @@
               "$m + n$",
               "$mn$",
               "$2$",
-              "Yes (if $m \\le 2$ or $n \\le 2$)",
+              "Yes (if $m \\\\le 2$ or $n \\\\le 2$)",
               "Yes (if both $m, n$ are even)"
             ],
             [
               "Tree $T_n$",
               "$n$",
               "$n - 1$",
-              "$2$ (for $n \\ge 2$)",
+              "$2$ (for $n \\\\ge 2$)",
               "Always Yes",
-              "No (only for $n \\le 2$, no cycles)"
+              "No (only for $n \\\\le 2$, no cycles)"
             ]
           ]
         },
@@ -314,24 +314,24 @@
               "Visits every **VERTEX** exactly once"
             ],
             [
-              "Closed Cycle Name",
+              "Closed Traversal Name",
               "Euler Circuit (Euler Tour)",
               "Hamiltonian Cycle"
             ],
             [
-              "Necessary & Sufficient Condition",
-              "Connected and all vertex degrees are even",
-              "No simple condition (NP-complete)"
+              "Exact Condition",
+              "All vertex degrees must be even",
+              "No simple parity rule (degree tests are only sufficient)"
             ],
             [
-              "Decision Complexity",
-              "Polynomial time: $O(V + E)$",
-              "NP-complete in general graphs"
+              "Open Path Condition",
+              "Exactly 2 vertices have odd degree",
+              "Visits all vertices without returning to start"
             ],
             [
-              "Primary Theorems",
-              "Euler's Theorem (degree parity)",
-              "Dirac's Theorem (deg $\\ge n/2$) & Ore's Theorem"
+              "Classic Test Theorem",
+              "Euler\\'s Theorem (degree parity)",
+              "Dirac\\'s Theorem ($\\\\text{deg}(v) \\\\ge n/2$ is a sufficient condition)"
             ]
           ]
         }
@@ -340,8 +340,8 @@
         {
           "question": "A simple undirected connected graph has $8$ vertices. Three vertices have degree $4$, and the remaining five vertices have degree $2$. Find the total number of edges in this graph.",
           "steps": [
-            "Step 1: Calculate the sum of all vertex degrees: $\\sum \\text{deg}(v) = (3 \\times 4) + (5 \\times 2) = 12 + 10 = 22$.",
-            "Step 2: Apply the Handshaking Lemma: $\\sum \\text{deg}(v) = 2E \\implies 22 = 2E$.",
+            "Step 1: Calculate the sum of all vertex degrees: $\\\\sum \\\\text{deg}(v) = (3 \\\\times 4) + (5 \\\\times 2) = 12 + 10 = 22$.",
+            "Step 2: Apply the Handshaking Lemma: $\\\\sum \\\\text{deg}(v) = 2E \\\\implies 22 = 2E$.",
             "Step 3: Solve for $E$: $E = 22 / 2 = 11$."
           ],
           "answer": "The graph has $11$ edges."
@@ -349,28 +349,28 @@
         {
           "question": "A connected planar graph has $10$ vertices and $15$ edges. Into how many regions (faces) does this graph divide the plane?",
           "steps": [
-            "Step 1: State Euler's planar formula: $V - E + F = 2$.",
+            "Step 1: State Euler\\'s planar formula: $V - E + F = 2$.",
             "Step 2: Substitute $V = 10$ and $E = 15$: $10 - 15 + F = 2$.",
-            "Step 3: Solve for $F$: $-5 + F = 2 \\implies F = 7$."
+            "Step 3: Solve for $F$: $-5 + F = 2 \\\\implies F = 7$."
           ],
           "answer": "The graph divides the plane into $7$ faces (including the 1 exterior unbounded region)."
         },
         {
-          "question": "A connected graph has vertex degrees: $\\{2, 2, 3, 3, 4, 4\\}$. Determine whether it contains an Euler circuit, an Euler path (trail), or neither.",
+          "question": "A connected graph has vertex degrees: $\\\\{2, 2, 3, 3, 4, 4\\\\}$. Determine whether it contains an Euler circuit, an Euler path (trail), or neither.",
           "steps": [
-            "Step 1: Check degrees for parity: $2$ (even), $2$ (even), $3$ (odd), $3$ (odd), $4$ (even), $4$ (even). Exactly two vertices have odd degree.",
-            "Step 2: Check Euler Circuit condition: An Euler circuit requires $0$ odd vertices. Here we have $2$ odd vertices, so NO Euler circuit exists.",
+            "Step 1: Count vertices with odd degree: $2$ (even), $2$ (even), $3$ (odd), $3$ (odd), $4$ (even), $4$ (even). Exactly two vertices have odd degree.",
+            "Step 2: Check Euler Circuit condition: An Euler circuit requires $0$ odd vertices. Since there are $2$ odd vertices, no Euler circuit exists.",
             "Step 3: Check Euler Path condition: An Euler path requires exactly $2$ odd vertices in a connected graph. Since there are exactly $2$, an Euler path exists."
           ],
-          "answer": "The graph contains an Euler path (starting at one odd vertex and ending at the other), but does NOT contain an Euler circuit."
+          "answer": "The graph contains an Euler path (trail), but does NOT contain an Euler circuit."
         }
       ],
       "traps": [
         "Trap 1 (Euler Circuit vs Path Parity): An Euler Circuit requires ALL vertices to have even degrees (0 odd vertices). An Euler Path requires EXACTLY TWO vertices to have odd degrees. If there are 4 odd vertices, neither exists.",
         "Trap 2 (Degree Sequence Isomorphism Trap): Identical degree sequences do NOT guarantee isomorphism! A 6-cycle $C_6$ and two disjoint triangles $2C_3$ both have degree sequence $(2,2,2,2,2,2)$, but one is connected and the other is disconnected.",
-        "Trap 3 (Planar Edge Bound Direction): The inequality $E \\le 3V - 6$ is a NECESSARY condition for planarity, NOT sufficient. $K_{3,3}$ has $V=6, E=9$, which satisfies $9 \\le 3(6)-6 = 12$, yet $K_{3,3}$ is non-planar (it fails the triangle-free bound $E \\le 2V - 4 = 8$).",
-        "Trap 4 (Exterior Face in Euler's Formula): In $V - E + F = 2$, $F$ INCLUDES the outer unbounded face. If an exam question asks for \"interior regions only\", remember to subtract 1 ($F_{\\text{interior}} = F - 1$).",
-        "Trap 5 (Bipartite Chromatic Threshold): A graph has chromatic number $\\chi = 2$ if and only if it is bipartite, which means it contains NO odd cycles. If even a single 3-cycle or 5-cycle is present, $\\chi \\ge 3$."
+        "Trap 3 (Planar Edge Bound Direction): The inequality $E \\\\le 3V - 6$ is a NECESSARY condition for a simple planar graph, not a sufficient one. $K_{3,3}$ has $V=6, E=9$, which satisfies $9 \\\\le 3(6)-6 = 12$, yet $K_{3,3}$ is non-planar (it fails the triangle-free bound $E \\\\le 2V - 4 = 8$).",
+        "Trap 4 (Exterior Face in Euler\\'s Formula): In $V - E + F = 2$, $F$ INCLUDES the outer unbounded face. If an exam question asks for \"interior regions only\", remember to subtract 1 ($F_{\\\\text{interior}} = F - 1$).",
+        "Trap 5 (Bipartite Chromatic Threshold): A graph has chromatic number $\\\\chi = 2$ if and only if it is bipartite, which means it contains NO odd cycles. If even a single 3-cycle or 5-cycle is present, $\\\\chi \\\\ge 3$."
       ],
       "practice": [
         {
@@ -382,7 +382,7 @@
             "$21$"
           ],
           "answer": 1,
-          "why": "For a simple planar graph with $V \\ge 3$, $E_{\\max} = 3V - 6$. For $V = 7$, $E_{\\max} = 3(7) - 6 = 21 - 6 = 15$."
+          "why": "For a simple planar graph with $V \\\\ge 3$, $E_{\\\\max} = 3V - 6$. For $V = 7$, $E_{\\\\max} = 3(7) - 6 = 21 - 6 = 15$."
         },
         {
           "q": "A connected undirected graph contains an Euler circuit if and only if:",
@@ -393,10 +393,10 @@
             "The graph is bipartite"
           ],
           "answer": 2,
-          "why": "Euler's theorem states that a connected graph has a closed Euler circuit if and only if every vertex has an even degree."
+          "why": "Euler\\'s theorem states that a connected graph has a closed Euler circuit if and only if every vertex has an even degree."
         },
         {
-          "q": "What is the chromatic number $\\chi(G)$ of the cycle graph $C_7$?",
+          "q": "What is the chromatic number $\\\\chi(G)$ of the cycle graph $C_7$?",
           "options": [
             "$3$",
             "$2$",
@@ -415,10 +415,10 @@
             "$16$"
           ],
           "answer": 1,
-          "why": "Using Euler's formula $V - E + F = 2$: $8 - E + 6 = 2 \\implies 14 - E = 2 \\implies E = 12$."
+          "why": "Using Euler\\'s formula $V - E + F = 2$: $8 - E + 6 = 2 \\\\implies 14 - E = 2 \\\\implies E = 12$."
         },
         {
-          "q": "According to Kuratowski's theorem, a graph is non-planar if and only if it contains a subgraph homeomorphic to:",
+          "q": "According to Kuratowski\\'s theorem, a graph is non-planar if and only if it contains a subgraph homeomorphic to:",
           "options": [
             "$K_4$ or $K_{3,2}$",
             "$K_5$ or $K_{3,3}$",
@@ -426,21 +426,21 @@
             "$K_{4,4}$ only"
           ],
           "answer": 1,
-          "why": "Kuratowski's theorem establishes that a finite graph is planar if and only if it contains no subgraph homeomorphic to $K_5$ or $K_{3,3}$."
+          "why": "Kuratowski\\'s theorem establishes that a finite graph is planar if and only if it contains no subgraph homeomorphic to $K_5$ or $K_{3,3}$."
         },
         {
-          "q": "For any undirected graph $G$, which inequality correctly relates vertex connectivity $\\kappa(G)$, edge connectivity $\\lambda(G)$, and minimum degree $\\delta(G)$?",
+          "q": "Which of the following provides a SUFFICIENT condition for a simple undirected graph with $n \\\\ge 3$ vertices to contain a Hamiltonian cycle?",
           "options": [
-            "$\\delta(G) \\le \\lambda(G) \\le \\kappa(G)$",
-            "$\\lambda(G) \\le \\kappa(G) \\le \\delta(G)$",
-            "$\\kappa(G) \\le \\lambda(G) \\le \\delta(G)$",
-            "$\\kappa(G) \\le \\delta(G) \\le \\lambda(G)$"
+            "All vertices have even degrees",
+            "The graph contains no cycles",
+            "The degree of every vertex is at least $n/2$",
+            "The chromatic number of the graph is 2"
           ],
           "answer": 2,
-          "why": "Whitney's theorem proves that vertex connectivity never exceeds edge connectivity, which never exceeds minimum degree: $\\kappa(G) \\le \\lambda(G) \\le \\delta(G)$."
+          "why": "Dirac\\'s theorem states that if $\\\\text{deg}(v) \\\\ge n/2$ for every vertex in a simple graph with $n \\\\ge 3$, the graph is Hamiltonian. Note: this is a sufficient condition, not a necessary one."
         },
         {
-          "q": "In an undirected graph with $10$ vertices, the degrees of $9$ vertices are $3, 3, 3, 2, 2, 2, 4, 4, 1$. Which of the following could be the degree of the $10^{\\text{th}}$ vertex?",
+          "q": "In an undirected graph with $10$ vertices, the degrees of $9$ vertices are $3, 3, 3, 2, 2, 2, 4, 4, 1$. Which of the following could be the degree of the $10^{\\\\text{th}}$ vertex?",
           "options": [
             "$1$",
             "$3$",
