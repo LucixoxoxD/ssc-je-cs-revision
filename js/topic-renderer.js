@@ -20,16 +20,45 @@
   }
 
   function renderMath(element) {
-    if (window.renderMathInElement) {
-      window.renderMathInElement(element, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false },
-          { left: '\\[', right: '\\]', display: true }
-        ],
-        throwOnError: false
-      });
+    if (!element) return;
+
+    const applyKaTeX = () => {
+      if (typeof window.renderMathInElement === 'function') {
+        try {
+          window.renderMathInElement(element, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false },
+              { left: '\\(', right: '\\)', display: false },
+              { left: '\\[', right: '\\]', display: true }
+            ],
+            throwOnError: false,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "annotation", "annotation-xml"]
+          });
+        } catch (err) {
+          console.warn('KaTeX rendering error:', err);
+        }
+      }
+    };
+
+    if (typeof window.renderMathInElement === 'function') {
+      applyKaTeX();
+    } else {
+      // Deterministic readiness: listen to script load and fallback polling
+      const autoRenderScript = document.querySelector('script[src*="auto-render"]');
+      if (autoRenderScript) {
+        autoRenderScript.addEventListener('load', applyKaTeX, { once: true });
+      }
+      let retries = 0;
+      const interval = setInterval(() => {
+        retries++;
+        if (typeof window.renderMathInElement === 'function') {
+          clearInterval(interval);
+          applyKaTeX();
+        } else if (retries >= 40) {
+          clearInterval(interval);
+        }
+      }, 50);
     }
   }
 
@@ -379,7 +408,9 @@
         });
         // Reveal explanation box
         explanationBox.classList.add('visible');
-        renderMath(explanationBox);
+        if (explanationBox && !explanationBox.querySelector('.katex')) {
+          renderMath(explanationBox);
+        }
       });
     });
   }
