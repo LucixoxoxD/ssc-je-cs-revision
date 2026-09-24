@@ -464,6 +464,240 @@ window.SUBJECT_DATA["eng-math"] = {
           "why": "A perfect matching pairs all vertices disjointly using $n/2$ edges. Since each edge covers $2$ vertices, $n$ must be an even integer."
         }
       ]
+    },
+    {
+      "id": "eng-math-linear-algebra",
+      "title": "Linear Algebra",
+      "status": "done",
+      "explanation": "Linear Algebra forms the computational core of engineering mathematics, computer graphics, optimization, and machine learning. For SSC JE and Scientific Assistant (IMD) Paper-I, prioritize matrix operations, determinant formulas, rank conditions for linear systems, eigenvalue properties, and the mechanics of LU decomposition.\\n\\n**1. Matrices & Special Matrix Types**\\nA matrix of order $m \\times n$ has $m$ rows and $n$ columns. Special square matrices of order $n$ include:\\n- **Symmetric Matrix**: $A^T = A$ ($a_{ij} = a_{ji}$). All eigenvalues are strictly real.\\n- **Skew-Symmetric Matrix**: $A^T = -A$ ($a_{ij} = -a_{ji}$ and diagonal entries $a_{ii} = 0$). For odd order $n$, $|A| = 0$.\\n- **Orthogonal Matrix**: $A^T A = A A^T = I \\implies A^{-1} = A^T$. Its determinant is $|A| = \\pm 1$, and all eigenvalues satisfy $|\\lambda| = 1$.\\n- **Idempotent Matrix**: $A^2 = A$. Eigenvalues are exclusively $0$ or $1$.\\n- **Involutory Matrix**: $A^2 = I \\implies A^{-1} = A$. Eigenvalues are $+1$ or $-1$.\\n- **Nilpotent Matrix**: $A^k = 0$ for some positive integer $k$. All eigenvalues are strictly $0$, and $|A| = 0$.\\n- **Rank of a Matrix $\\text{rank}(A)$**: The maximum number of linearly independent rows or columns. For $A_{m \\times n}$, $\\text{rank}(A) \\le \\min(m, n)$ and $\\text{rank}(AB) \\le \\min(\\text{rank}(A), \\text{rank}(B))$.\\n\\n**2. Determinants & Core Operational Laws**\\nDeterminants are defined exclusively for square matrices. Essential operational properties:\\n- $|A^T| = |A|$ and $|AB| = |A||B|$.\\n- **Scalar Multiple Rule**: For an $n \\times n$ matrix $A$, $|kA| = k^n |A|$ (critical exam pitfall!).\\n- If two rows or columns are identical or proportional, $|A| = 0$.\\n- Interchanging any two rows or columns changes the sign: $|A'| = -|A|$.\\n- For an invertible matrix: $|A^{-1}| = 1 / |A|$.\\n- **Adjoint Formulas**: $A \\cdot \\text{adj}(A) = |A| I$. For order $n$, $|\\text{adj}(A)| = |A|^{n-1}$ and $|\\text{adj}(\\text{adj}(A))| = |A|^{(n-1)^2}$.\\n\\n**3. System of Linear Equations**\\nConsider a linear system of $m$ equations in $n$ variables represented as $AX = B$ with augmented matrix $[A | B]$:\\n- **Non-Homogeneous System ($AX = B, B \\ne 0$)**:\\n  1. **Inconsistent (No Solution)**: $\\text{rank}(A) \\ne \\text{rank}(A | B)$.\\n  2. **Consistent (Unique Solution)**: $\\text{rank}(A) = \\text{rank}(A | B) = n$. For a square system ($n \\times n$), this requires $|A| \\ne 0$.\\n  3. **Consistent (Infinitely Many Solutions)**: $\\text{rank}(A) = \\text{rank}(A | B) = r < n$. The number of independent (free) parameters is $n - r$.\\n- **Homogeneous System ($AX = 0$)**: Always consistent since $X = 0$ is a solution.\\n  1. **Unique Trivial Solution ($X = 0$)**: $\\text{rank}(A) = n \\iff |A| \\ne 0$.\\n  2. **Infinitely Many Non-Trivial Solutions**: $\\text{rank}(A) < n \\iff |A| = 0$.\\n\\n**4. Eigenvalues & Eigenvectors**\\nFor square matrix $A$, scalar $\\lambda$ and non-zero vector $X$ satisfying $AX = \\lambda X$ are eigenvalues and eigenvectors. The characteristic equation is $|A - \\lambda I| = 0$.\\n- **Fundamental Invariants**:\\n  1. $\\sum \\lambda_i = \\text{Trace}(A) = \\sum a_{ii}$ (Sum of eigenvalues equals sum of principal diagonal entries).\\n  2. $\\prod \\lambda_i = |A|$ (Product of eigenvalues equals determinant).\\n- **Triangular & Diagonal Matrices**: Eigenvalues are simply the entries on the principal diagonal.\\n- **Eigenvalue Transformations**: If $A$ has eigenvalue $\\lambda$, then $A^k$ has $\\lambda^k$, $A^{-1}$ has $1/\\lambda$ (if $|A| \\ne 0$), $kA$ has $k\\lambda$, and $(A + cI)$ has $\\lambda + c$.\\n- **Cayley-Hamilton Theorem**: Every square matrix satisfies its own characteristic equation: $P(A) = 0$. Used to quickly compute $A^{-1}$ and higher powers $A^m$.\\n\\n**5. LU Decomposition**\\nLU decomposition factors a square matrix $A$ into the product of a lower triangular matrix $L$ and an upper triangular matrix $U$: $A = LU$.\\n- **Doolittle\\'s Method**: $L$ has unit diagonal entries ($l_{ii} = 1$).\\n- **Crout\\'s Method**: $U$ has unit diagonal entries ($u_{ii} = 1$).\\n- **Existence**: $A$ has an LU decomposition without row permutations if all leading principal minors of $A$ are non-zero.\\n- **Solving $AX = B$**: Done in two rapid steps: forward substitution $LY = B$ for $Y$, followed by back substitution $UX = Y$ for $X$.",
+      "keyPoints": [
+        "Eigenvalue Sum & Product Rules: Sum of eigenvalues equals the matrix trace ($\\sum \\lambda_i = \\text{Tr}(A)$); Product of eigenvalues equals the determinant ($\\prod \\lambda_i = |A|$).",
+        "Triangular Matrix Eigenvalues: The eigenvalues of any upper triangular, lower triangular, or diagonal matrix are simply its principal diagonal elements.",
+        "Scalar Determinant Scaling: For an $n \\times n$ matrix $A$, $|kA| = k^n |A|$. For a $3 \\times 3$ matrix, $|2A| = 2^3 |A| = 8|A|$.",
+        "Adjoint Determinant Formulas: For an $n \\times n$ matrix $A$, $|\\text{adj}(A)| = |A|^{n-1}$ and $|\\text{adj}(\\text{adj}(A))| = |A|^{(n-1)^2}$.",
+        "System $AX=B$ Consistency: Consistent if and only if $\\text{rank}(A) = \\text{rank}(A|B)$. Unique solution if rank $= n$; Infinitely many solutions if rank $< n$; Inconsistent (no solution) if $\\text{rank}(A) \\ne \\text{rank}(A|B)$.",
+        "Homogeneous System $AX=0$: Possesses non-trivial (non-zero) solutions if and only if $\\text{rank}(A) < n \\iff |A| = 0$. If $|A| \\ne 0$, only the trivial solution ($X = 0$) exists.",
+        "Special Matrix Eigenvalue Rules: Real symmetric matrices have strictly real eigenvalues. Skew-symmetric matrices have pure imaginary or zero eigenvalues. Orthogonal matrices have $|\\lambda| = 1$. Idempotent matrices have eigenvalues only $0$ or $1$.",
+        "Eigenvalue Power & Inverse Rules: If $\\lambda$ is an eigenvalue of $A$, then $A^k \\implies \\lambda^k$, $A^{-1} \\implies \\lambda^{-1}$, $kA \\implies k\\lambda$, and $A + cI \\implies \\lambda + c$.",
+        "Cayley-Hamilton Theorem: Every square matrix satisfies its own characteristic equation ($P(A) = 0$). Multiplying by $A^{-1}$ allows expressing $A^{-1}$ as a linear combination of lower powers of $A$.",
+        "LU Decomposition Structure: Factors $A = LU$ (Doolittle uses $l_{ii} = 1$). Used to solve $AX = B$ via forward substitution ($LY = B$) followed by back substitution ($UX = Y$)."
+      ],
+      "tables": [
+        {
+          "caption": "Summary: Properties and Eigenvalues of Special Matrix Types",
+          "headers": [
+            "Matrix Type",
+            "Defining Condition",
+            "Determinant ($|A|$)",
+            "Nature of Eigenvalues"
+          ],
+          "rows": [
+            [
+              "Symmetric Matrix",
+              "$A^T = A$",
+              "Real",
+              "All strictly real"
+            ],
+            [
+              "Skew-Symmetric Matrix",
+              "$A^T = -A$ ($a_{ii} = 0$)",
+              "$0$ (if order $n$ is odd)",
+              "Pure imaginary or zero"
+            ],
+            [
+              "Orthogonal Matrix",
+              "$A^T A = I$ ($A^{-1} = A^T$)",
+              "$\\pm 1$",
+              "Modulus $|\\lambda| = 1$"
+            ],
+            [
+              "Idempotent Matrix",
+              "$A^2 = A$",
+              "$0$ or $1$",
+              "Only $0$ or $1$"
+            ],
+            [
+              "Involutory Matrix",
+              "$A^2 = I$ ($A^{-1} = A$)",
+              "$\\pm 1$",
+              "Only $+1$ or $-1$"
+            ],
+            [
+              "Nilpotent Matrix",
+              "$A^k = 0$ (for some $k$)",
+              "$0$",
+              "All strictly $0$"
+            ]
+          ]
+        },
+        {
+          "caption": "Classification: Solution Criteria for Linear Systems",
+          "headers": [
+            "System Type",
+            "Rank Condition",
+            "Determinant Criterion",
+            "Nature of Solutions"
+          ],
+          "rows": [
+            [
+              "Non-Homogeneous ($AX = B$)",
+              "$\\text{rank}(A) = \\text{rank}(A|B) = n$",
+              "$|A| \\ne 0$ (if square)",
+              "Unique Solution (Consistent)"
+            ],
+            [
+              "Non-Homogeneous ($AX = B$)",
+              "$\\text{rank}(A) = \\text{rank}(A|B) = r < n$",
+              "$|A| = 0$ (if square)",
+              "Infinitely Many Solutions ($n - r$ free variables)"
+            ],
+            [
+              "Non-Homogeneous ($AX = B$)",
+              "$\\text{rank}(A) \\ne \\text{rank}(A|B)$",
+              "N/A",
+              "No Solution (Inconsistent)"
+            ],
+            [
+              "Homogeneous ($AX = 0$)",
+              "$\\text{rank}(A) = n$",
+              "$|A| \\ne 0$",
+              "Unique Trivial Solution ($X = 0$)"
+            ],
+            [
+              "Homogeneous ($AX = 0$)",
+              "$\\text{rank}(A) < n$",
+              "$|A| = 0$",
+              "Infinitely Many Non-Trivial Solutions"
+            ]
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "question": "A $2 \\times 2$ matrix $A$ has trace $\\text{Tr}(A) = 7$ and determinant $|A| = 12$. Find the eigenvalues of $A$ and the eigenvalues of $A^2$.",
+          "steps": [
+            "Step 1: Set up the characteristic equation using trace and determinant: $\\lambda^2 - \\text{Tr}(A)\\lambda + |A| = 0 \\implies \\lambda^2 - 7\\lambda + 12 = 0$.",
+            "Step 2: Factor the quadratic equation: $(\\lambda - 3)(\\lambda - 4) = 0 \\implies \\lambda_1 = 3, \\lambda_2 = 4$.",
+            "Step 3: Apply the eigenvalue power property: the eigenvalues of $A^2$ are $\\lambda_1^2 = 3^2 = 9$ and $\\lambda_2^2 = 4^2 = 16$."
+          ],
+          "answer": "The eigenvalues of $A$ are $3$ and $4$; the eigenvalues of $A^2$ are $9$ and $16$."
+        },
+        {
+          "question": "Let $A$ be a $3 \\times 3$ matrix with determinant $|A| = 4$. Find the value of $|2A|$ and $|\\text{adj}(A)|$.",
+          "steps": [
+            "Step 1: Apply the scalar determinant formula $|kA| = k^n |A|$ with $n = 3$: $|2A| = 2^3 |A| = 8 \\times 4 = 32$.",
+            "Step 2: Apply the adjoint determinant formula $|\\text{adj}(A)| = |A|^{n-1}$ with $n = 3$: $|\\text{adj}(A)| = |A|^{3-1} = |A|^2$.",
+            "Step 3: Evaluate: $|\\text{adj}(A)| = 4^2 = 16$."
+          ],
+          "answer": "$|2A| = 32$ and $|\\text{adj}(A)| = 16$."
+        },
+        {
+          "question": "Determine the condition on parameter $k$ for the system to have a unique solution: $x + y + z = 6$, $x + 2y + 3z = 10$, $x + 2y + kz = 12$.",
+          "steps": [
+            "Step 1: Write the coefficient matrix $A = \\begin{pmatrix} 1 & 1 & 1 \\\\ 1 & 2 & 3 \\\\ 1 & 2 & k \\end{pmatrix}$. A square system has a unique solution if and only if $|A| \\ne 0$.",
+            "Step 2: Compute $|A|$ using elementary row operations: $R_2 \\to R_2 - R_1 \\implies (0, 1, 2)$ and $R_3 \\to R_3 - R_2 \\implies (0, 0, k-3)$.",
+            "Step 3: The triangular determinant is $1 \\times 1 \\times (k - 3) = k - 3$. For a unique solution, $k - 3 \\ne 0 \\implies k \\ne 3$."
+          ],
+          "answer": "The system has a unique solution if and only if $k \\ne 3$."
+        }
+      ],
+      "traps": [
+        "Trap 1 (Scalar Multiple Determinant Exponent): Multiplying an $n \\times n$ matrix by scalar $k$ multiplies every row by $k$, so $|kA| = k^n |A|$, NOT $k|A|$. For order $3$, $|3A| = 27|A|$, not $3|A|$ or $9|A|$.",
+        "Trap 2 (Trace and Determinant Sign Rule): In the characteristic equation $\\lambda^2 - \\text{Tr}(A)\\lambda + |A| = 0$, note the negative sign before trace. If an equation is $\\lambda^2 + 5\\lambda + 6 = 0$, the trace is $-5$, NOT $+5$.",
+        "Trap 3 (Homogeneous System Consistency): A homogeneous system $AX = 0$ can NEVER have 'no solution'. It is always consistent because $X = 0$ is always a solution. It only alternates between unique trivial ($|A| \\ne 0$) and infinitely many non-trivial ($|A| = 0$).",
+        "Trap 4 (Sum of Matrices Eigenvalue Fallacy): While $\\lambda(A^k) = \\lambda^k$ and $\\lambda(A + cI) = \\lambda + c$, in general $\\lambda(A + B) \\ne \\lambda(A) + \\lambda(B)$ unless $A$ and $B$ share identical eigenvectors (they commute).",
+        "Trap 5 (Singular Matrix Rank): If $|A| = 0$ for an $n \\times n$ matrix, its rank is strictly less than $n$ ($\\text{rank}(A) \\le n - 1$). However, the rank is NOT zero unless $A$ is the all-zero null matrix."
+      ],
+      "practice": [
+        {
+          "q": "The eigenvalues of a $2 \\times 2$ matrix $A$ have sum equal to $6$ and product equal to $8$. What are the eigenvalues of $A$?",
+          "options": [
+            "$2$ and $4$",
+            "$1$ and $5$",
+            "$-2$ and $-4$",
+            "$3$ and $3$"
+          ],
+          "answer": 0,
+          "why": "The characteristic equation is $\\lambda^2 - \\text{Tr}(A)\\lambda + |A| = 0 \\implies \\lambda^2 - 6\\lambda + 8 = 0 \\implies (\\lambda - 2)(\\lambda - 4) = 0$. Thus $\\lambda = 2, 4$."
+        },
+        {
+          "q": "If $A$ is a $3 \\times 3$ matrix with determinant $|A| = 5$, what is the value of $|-2A|$?",
+          "options": [
+            "$-10$",
+            "$-40$",
+            "$40$",
+            "$20$"
+          ],
+          "answer": 1,
+          "why": "For an $n \\times n$ matrix, $|kA| = k^n |A|$. Here $n = 3$, so $|-2A| = (-2)^3 |A| = -8 \\times 5 = -40$."
+        },
+        {
+          "q": "Under which condition does a homogeneous system of $n$ linear equations in $n$ variables, $AX = 0$, possess a non-trivial (non-zero) solution?",
+          "options": [
+            "$|A| \\ne 0$",
+            "$\\text{rank}(A) = n$",
+            "$|A| = 0$",
+            "$A$ is an identity matrix"
+          ],
+          "answer": 2,
+          "why": "A homogeneous system $AX = 0$ has non-trivial solutions if and only if the coefficient matrix is singular, i.e., $|A| = 0$ (meaning $\\text{rank}(A) < n$)."
+        },
+        {
+          "q": "What is the determinant of any skew-symmetric matrix of odd order (such as $3 \\times 3$ or $5 \\times 5$)?",
+          "options": [
+            "$1$",
+            "$-1$",
+            "Undetermined",
+            "$0$"
+          ],
+          "answer": 3,
+          "why": "For skew-symmetric $A$, $A^T = -A$. Taking determinants: $|A| = |A^T| = |-A| = (-1)^n |A|$. When $n$ is odd, $|A| = -|A| \\implies 2|A| = 0 \\implies |A| = 0$."
+        },
+        {
+          "q": "If $\\lambda = 2$ is an eigenvalue of an invertible matrix $A$, which of the following is guaranteed to be an eigenvalue of $A^{-1} + 3I$?",
+          "options": [
+            "$5$",
+            "$3.5$",
+            "$2.5$",
+            "$4$"
+          ],
+          "answer": 1,
+          "why": "If $\\lambda$ is an eigenvalue of $A$, then an eigenvalue of $A^{-1}$ is $1/\\lambda = 1/2 = 0.5$. Adding $3I$ shifts the eigenvalue by $+3$: $0.5 + 3 = 3.5$."
+        },
+        {
+          "q": "If $A$ is a square matrix of order $4 \\times 4$ with determinant $|A| = 3$, what is the determinant of its adjoint matrix, $|\\text{adj}(A)|$?",
+          "options": [
+            "$81$",
+            "$9$",
+            "$27$",
+            "$12$"
+          ],
+          "answer": 2,
+          "why": "For an $n \\times n$ matrix, $|\\text{adj}(A)| = |A|^{n-1}$. For $n = 4$ and $|A| = 3$: $|\\text{adj}(A)| = 3^{4-1} = 3^3 = 27$."
+        },
+        {
+          "q": "In LU decomposition of a matrix $A$ ($A = LU$), solving the system $AX = B$ is carried out in two successive steps. What is the correct order of these steps?",
+          "options": [
+            "Solve $LY = B$ by forward substitution, then solve $UX = Y$ by back substitution",
+            "Solve $UY = B$ by back substitution, then solve $LX = Y$ by forward substitution",
+            "Invert $U$ directly, then multiply by $L^{-1}$",
+            "Solve $UX = B$ first, then multiply by $L$"
+          ],
+          "answer": 0,
+          "why": "Since $A = LU$, $AX = B \\implies L(UX) = B$. Setting $Y = UX$, one first solves the lower-triangular system $LY = B$ using forward substitution, and then solves the upper-triangular system $UX = Y$ using back substitution."
+        },
+        {
+          "q": "If $P$ is an orthogonal matrix, what are the only possible values for its determinant $|P|$?",
+          "options": [
+            "$0$ only",
+            "Any positive real number",
+            "$0$ or $1$",
+            "$+1$ or $-1$"
+          ],
+          "answer": 3,
+          "why": "For an orthogonal matrix, $P^T P = I$. Taking determinants: $|P^T||P| = |I| \\implies |P|^2 = 1 \\implies |P| = \\pm 1$."
+        }
+      ]
     }
   ]
 };

@@ -22,7 +22,7 @@
         "id": "eng-math-linear-algebra",
         "title": "Linear Algebra",
         "syllabus": "Matrices, determinants, system of linear equations, eigenvalues and eigenvectors, LU decomposition.",
-        "status": "pending"
+        "status": "done"
       },
       {
         "id": "eng-math-calculus-probability",
