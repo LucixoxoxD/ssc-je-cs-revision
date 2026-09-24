@@ -138,16 +138,15 @@
       }
 
       try {
-        const subject = await window.DataLoader.getSubject(subjectId);
-        if (!subject) {
+        const topicResult = await window.DataLoader.getTopic(subjectId, topicId);
+        if (!topicResult || !topicResult.subject) {
           throw new Error(`Subject "${subjectId}" not found.`);
         }
-
-        const topic = (subject.topics || []).find(t => t.id === topicId);
-        if (!topic) {
-          throw new Error(`Topic "${topicId}" not found in subject "${subject.title}".`);
+        if (!topicResult.topic) {
+          throw new Error(`Topic "${topicId}" not found in subject "${topicResult.subject.title}".`);
         }
 
+        const { subject, topic } = topicResult;
         document.title = `${topic.title} | ${subject.title} Revision | SSC JE`;
         window.TopicRenderer.render(container, subject, topic);
 

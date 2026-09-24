@@ -31,7 +31,8 @@
             subjectIcon: sub.icon,
             topicId: top.id,
             topicTitle: top.title,
-            status: top.status || 'coming_soon'
+            syllabus: top.syllabus || '',
+            status: top.status || 'pending'
           });
         });
       }
@@ -56,10 +57,11 @@
         return;
       }
 
-      // Filter matching topics
+      // Filter matching topics by title, subject, or syllabus keywords
       const matches = allTopics.filter(t => {
         return t.topicTitle.toLowerCase().includes(query) ||
-               t.subjectTitle.toLowerCase().includes(query);
+               t.subjectTitle.toLowerCase().includes(query) ||
+               t.syllabus.toLowerCase().includes(query);
       });
 
       // Update UI
@@ -94,12 +96,10 @@
         return;
       }
 
-      const revisedMap = window.StorageManager ? window.StorageManager.getRevisedMap() : {};
-
       resultsContainer.innerHTML = matches.map(m => {
-        const isRevised = !!revisedMap[`${m.subjectId}/${m.topicId}`];
-        const isReady = m.status === 'ready';
-        const targetUrl = isReady ? `topic.html?id=${m.subjectId}/${m.topicId}` : `subject.html?id=${m.subjectId}`;
+        const isRevised = window.StorageManager ? window.StorageManager.isRevised(m.subjectId, m.topicId) : false;
+        const isReady = m.status === 'done' || m.status === 'ready';
+        const targetUrl = `topic.html?id=${m.subjectId}/${m.topicId}`;
 
         return `
           <a href="${targetUrl}" class="search-result-card" aria-label="Open ${m.topicTitle}">
@@ -114,7 +114,7 @@
             </div>
             <div>
               <span class="status-badge ${isReady ? 'ready' : 'coming-soon'}">
-                ${isReady ? '● Ready to Revise' : 'Coming Soon'}
+                ${isReady ? '● Ready to Revise' : 'Pending'}
               </span>
             </div>
           </a>

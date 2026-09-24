@@ -6,9 +6,10 @@
   "description": "Process Management, CPU Scheduling, Synchronization, Deadlocks, Memory Management & File Systems.",
   "topics": [
     {
-      "id": "process-management",
+      "id": "os-process-management",
+      "alias": "process-management",
       "title": "Process Management",
-      "status": "ready",
+      "status": "done",
       "explanation": "A process is a program in execution, representing the active unit of work in modern operating systems. While a program is a passive entity stored on disk (such as an executable file like a.out or app.exe), a process is an active entity loaded into main memory (RAM) with a dedicated address space and assigned system resources. A process's memory layout is logically organized into four segments: Text (compiled machine code), Data (global and static variables), Heap (dynamically allocated memory at runtime), and Stack (local variables, function parameters, and return addresses). Processes move through distinct states during their life cycle: New (being created), Ready (waiting in RAM for CPU assignment), Running (actively executing instructions on the CPU), Waiting/Blocked (waiting for an I/O event or signal), and Terminated (execution completed, awaiting resource reclamation). The OS tracks and manages every process using a kernel data structure called the Process Control Block (PCB). Switching the CPU from one process to another involves saving the context of the running process and restoring that of the incoming process—a procedure known as Context Switching.",
       "keyPoints": [
         "Process vs Program: A program is passive (stored on disk); a process is active (resides in RAM with Program Counter and CPU registers).",
@@ -130,31 +131,7 @@
           "why": "The Bootstrap Loader is a firmware program stored permanently in ROM/Flash memory (BIOS/UEFI) to initialize hardware on boot. The PCB is a dynamic kernel structure storing process runtime states like PC, registers, open files, and memory limits."
         }
       ]
-    },
-    {
-      "id": "cpu-scheduling",
-      "title": "CPU Scheduling Algorithms",
-      "status": "coming_soon"
-    },
-    {
-      "id": "process-sync",
-      "title": "Process Synchronization & Deadlocks",
-      "status": "coming_soon"
-    },
-    {
-      "id": "memory-management",
-      "title": "Memory Management & Virtual Memory",
-      "status": "coming_soon"
-    },
-    {
-      "id": "storage-management",
-      "title": "Storage Management & Disk Scheduling",
-      "status": "coming_soon"
-    },
-    {
-      "id": "file-systems",
-      "title": "File Systems & System Calls",
-      "status": "coming_soon"
     }
   ]
 }
+

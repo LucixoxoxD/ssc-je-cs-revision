@@ -18,7 +18,12 @@
     isRevised(subjectId, topicId) {
       const key = `${subjectId}/${topicId}`;
       const map = this.getRevisedMap();
-      return !!map[key];
+      if (map[key]) return true;
+      if (subjectId === 'os') {
+        if (topicId === 'os-process-management' && map['os/process-management']) return true;
+        if (topicId === 'process-management' && map['os/os-process-management']) return true;
+      }
+      return false;
     },
 
     setRevised(subjectId, topicId, status) {
@@ -30,8 +35,19 @@
           subjectId,
           topicId
         };
+        if (subjectId === 'os') {
+          if (topicId === 'os-process-management') {
+            map['os/process-management'] = { revisedAt: Date.now(), subjectId, topicId: 'process-management' };
+          } else if (topicId === 'process-management') {
+            map['os/os-process-management'] = { revisedAt: Date.now(), subjectId, topicId: 'os-process-management' };
+          }
+        }
       } else {
         delete map[key];
+        if (subjectId === 'os') {
+          if (topicId === 'os-process-management') delete map['os/process-management'];
+          if (topicId === 'process-management') delete map['os/os-process-management'];
+        }
       }
       try {
         localStorage.setItem(REVISED_KEY, JSON.stringify(map));
@@ -53,10 +69,9 @@
       if (!topics || topics.length === 0) {
         return { revised: 0, total: 0, percent: 0 };
       }
-      const map = this.getRevisedMap();
       let revised = 0;
       topics.forEach(t => {
-        if (map[`${subjectId}/${t.id}`]) {
+        if (this.isRevised(subjectId, t.id)) {
           revised++;
         }
       });
@@ -67,13 +82,12 @@
     getOverallProgress(subjects = []) {
       let totalTopics = 0;
       let revisedTopics = 0;
-      const map = this.getRevisedMap();
 
       subjects.forEach(sub => {
         if (sub.topics && Array.isArray(sub.topics)) {
           totalTopics += sub.topics.length;
           sub.topics.forEach(t => {
-            if (map[`${sub.id}/${t.id}`]) {
+            if (this.isRevised(sub.id, t.id)) {
               revisedTopics++;
             }
           });
@@ -98,7 +112,12 @@
     isBookmarked(subjectId, topicId) {
       const key = `${subjectId}/${topicId}`;
       const bookmarks = this.getBookmarks();
-      return bookmarks.some(b => b.id === key);
+      if (bookmarks.some(b => b.id === key)) return true;
+      if (subjectId === 'os') {
+        if (topicId === 'os-process-management' && bookmarks.some(b => b.id === 'os/process-management')) return true;
+        if (topicId === 'process-management' && bookmarks.some(b => b.id === 'os/os-process-management')) return true;
+      }
+      return false;
     },
 
     toggleBookmark(meta) {

@@ -5,14 +5,32 @@ window.SUBJECTS_MANIFEST = [
     "order": 1,
     "title": "Engineering Mathematics",
     "icon": "📐",
-    "description": "Linear Algebra, Calculus, Probability, Statistics, Discrete Mathematics & Graph Theory.",
-    "topicsCount": 5,
+    "dataFile": "eng-math.json",
     "topics": [
-      { "id": "linear-algebra", "title": "Linear Algebra & Matrices", "status": "coming_soon" },
-      { "id": "calculus", "title": "Calculus & Maxima-Minima", "status": "coming_soon" },
-      { "id": "probability-statistics", "title": "Probability & Statistics", "status": "coming_soon" },
-      { "id": "discrete-mathematics", "title": "Discrete Mathematics & Set Theory", "status": "coming_soon" },
-      { "id": "graph-theory-math", "title": "Graph Theory & Combinatorics", "status": "coming_soon" }
+      {
+        "id": "eng-math-discrete-mathematics",
+        "title": "Discrete Mathematics",
+        "syllabus": "Sets, relations, functions, partial orders, lattices, propositional and first-order logic, combinatorics, counting, recurrence relations, generating functions.",
+        "status": "pending"
+      },
+      {
+        "id": "eng-math-graph-theory",
+        "title": "Graph Theory",
+        "syllabus": "Connectivity, matching, vertex/edge coloring, planarity, isomorphism, Euler and Hamiltonian paths.",
+        "status": "pending"
+      },
+      {
+        "id": "eng-math-linear-algebra",
+        "title": "Linear Algebra",
+        "syllabus": "Matrices, determinants, system of linear equations, eigenvalues and eigenvectors, LU decomposition.",
+        "status": "pending"
+      },
+      {
+        "id": "eng-math-calculus-probability",
+        "title": "Calculus & Probability",
+        "syllabus": "Limits, continuity, differentiability, maxima and minima, mean value theorem, definite integrals, conditional probability, Bayes’ theorem, random variables, Poisson/Normal distributions.",
+        "status": "pending"
+      }
     ]
   },
   {
@@ -20,14 +38,32 @@ window.SUBJECTS_MANIFEST = [
     "order": 2,
     "title": "Digital Logic",
     "icon": "⚡",
-    "description": "Boolean Algebra, K-Maps, Combinational & Sequential Circuits, Number Systems & Logic Gates.",
-    "topicsCount": 5,
+    "dataFile": "digital-logic.json",
     "topics": [
-      { "id": "boolean-algebra", "title": "Boolean Algebra & Logic Gates", "status": "coming_soon" },
-      { "id": "k-maps", "title": "K-Maps & Logic Minimization", "status": "coming_soon" },
-      { "id": "combinational-circuits", "title": "Combinational Circuits (Adders, MUX, Decoders)", "status": "coming_soon" },
-      { "id": "sequential-circuits", "title": "Sequential Circuits (Flip-Flops, Counters, Registers)", "status": "coming_soon" },
-      { "id": "number-systems", "title": "Number Systems & Binary Arithmetic", "status": "coming_soon" }
+      {
+        "id": "digital-logic-boolean-algebra",
+        "title": "Boolean Algebra",
+        "syllabus": "Minimization of Boolean expressions, logic gates, canonical SOP/POS forms, Karnaugh maps (K-maps), Quine-McCluskey method.",
+        "status": "pending"
+      },
+      {
+        "id": "digital-logic-combinational-circuits",
+        "title": "Combinational Circuits",
+        "syllabus": "Adders, subtractors, multiplexers, demultiplexers, decoders, encoders, code converters, arithmetic logic units.",
+        "status": "pending"
+      },
+      {
+        "id": "digital-logic-sequential-circuits",
+        "title": "Sequential Circuits",
+        "syllabus": "Latches, flip-flops (SR, JK, D, T), master-slave flip-flops, counters (synchronous and asynchronous), shift registers.",
+        "status": "pending"
+      },
+      {
+        "id": "digital-logic-number-representations",
+        "title": "Number Representations",
+        "syllabus": "Fixed-point and floating-point representations, IEEE 754 standard, 1’s and 2’s complement arithmetic.",
+        "status": "pending"
+      }
     ]
   },
   {
@@ -35,14 +71,38 @@ window.SUBJECTS_MANIFEST = [
     "order": 3,
     "title": "Computer Organization & Architecture",
     "icon": "💻",
-    "description": "Machine Instructions, Addressing Modes, ALU & Control Unit, Pipelining, Memory Hierarchy & I/O.",
-    "topicsCount": 5,
+    "dataFile": "coa.json",
     "topics": [
-      { "id": "machine-instructions", "title": "Machine Instructions & Addressing Modes", "status": "coming_soon" },
-      { "id": "alu-datapath", "title": "ALU, Data Path & Control Unit Design", "status": "coming_soon" },
-      { "id": "instruction-pipelining", "title": "Instruction Pipelining & Hazards", "status": "coming_soon" },
-      { "id": "memory-hierarchy", "title": "Memory Hierarchy & Cache Mapping", "status": "coming_soon" },
-      { "id": "io-interrupts", "title": "I/O Organization, DMA & Interrupts", "status": "coming_soon" }
+      {
+        "id": "coa-machine-instructions-addressing",
+        "title": "Machine Instructions & Addressing",
+        "syllabus": "Instruction formats, addressing modes, instruction cycle, RISC vs. CISC architectures.",
+        "status": "pending"
+      },
+      {
+        "id": "coa-cpu-control-design",
+        "title": "CPU Control Design",
+        "syllabus": "ALU design, hardwired control unit, microprogrammed control unit.",
+        "status": "pending"
+      },
+      {
+        "id": "coa-pipelining",
+        "title": "Pipelining",
+        "syllabus": "Instruction pipeline, hazards (data, structural, control), pipeline stalls, branch prediction.",
+        "status": "pending"
+      },
+      {
+        "id": "coa-memory-hierarchy",
+        "title": "Memory Hierarchy",
+        "syllabus": "Cache memory mapping (direct, associative, set-associative), cache replacement policies, write policies, main memory, virtual memory, page tables, TLB.",
+        "status": "pending"
+      },
+      {
+        "id": "coa-io-interface",
+        "title": "I/O Interface",
+        "syllabus": "Memory-mapped I/O, programmed I/O, interrupt-driven I/O, Direct Memory Access (DMA).",
+        "status": "pending"
+      }
     ]
   },
   {
@@ -50,14 +110,26 @@ window.SUBJECTS_MANIFEST = [
     "order": 4,
     "title": "Programming & Data Structures",
     "icon": "⌨️",
-    "description": "C Programming, Pointers, Arrays, Stacks, Queues, Linked Lists, Trees & Binary Search Trees.",
-    "topicsCount": 5,
+    "dataFile": "pds.json",
     "topics": [
-      { "id": "c-programming", "title": "C Programming Basics, Pointers & Recursion", "status": "coming_soon" },
-      { "id": "arrays-strings", "title": "Arrays, Strings & Structures", "status": "coming_soon" },
-      { "id": "stacks-queues", "title": "Stacks, Queues & Applications", "status": "coming_soon" },
-      { "id": "linked-lists", "title": "Linked Lists & Pointer Operations", "status": "coming_soon" },
-      { "id": "trees-bst", "title": "Binary Trees & Binary Search Trees (BST)", "status": "coming_soon" }
+      {
+        "id": "pds-c-programming",
+        "title": "C Programming",
+        "syllabus": "Data types, operators, precedence, control structures, functions, recursion, pointers, pointer arithmetic, dynamic memory allocation (malloc, free), structures, file handling.",
+        "status": "pending"
+      },
+      {
+        "id": "pds-linear-data-structures",
+        "title": "Linear Data Structures",
+        "syllabus": "Arrays, multidimensional array mapping, singly/doubly linked lists, stacks and queues (circular queue, priority queue, applications such as infix-to-postfix conversion).",
+        "status": "pending"
+      },
+      {
+        "id": "pds-non-linear-data-structures",
+        "title": "Non-Linear Data Structures",
+        "syllabus": "Trees, binary trees, tree traversals (inorder, preorder, postorder, level-order), Binary Search Trees (BST), AVL trees, B-Trees/B+ Trees, binary heaps, heapsort, disjoint set representations.",
+        "status": "pending"
+      }
     ]
   },
   {
@@ -65,15 +137,26 @@ window.SUBJECTS_MANIFEST = [
     "order": 5,
     "title": "Algorithms",
     "icon": "🧠",
-    "description": "Asymptotic Analysis, Searching, Sorting, Divide & Conquer, Greedy, Dynamic Programming & Graphs.",
-    "topicsCount": 6,
+    "dataFile": "algorithms.json",
     "topics": [
-      { "id": "asymptotic-analysis", "title": "Asymptotic Notation & Time Complexity", "status": "coming_soon" },
-      { "id": "sorting-searching", "title": "Searching & Sorting Algorithms", "status": "coming_soon" },
-      { "id": "divide-and-conquer", "title": "Divide and Conquer Strategies", "status": "coming_soon" },
-      { "id": "greedy-algorithms", "title": "Greedy Algorithms (Huffman, Fractional Knapsack)", "status": "coming_soon" },
-      { "id": "dynamic-programming", "title": "Dynamic Programming (0/1 Knapsack, LCS)", "status": "coming_soon" },
-      { "id": "graph-algorithms", "title": "Graph Traversals & Shortest Paths (BFS, DFS, Dijkstra)", "status": "coming_soon" }
+      {
+        "id": "algorithms-analysis-complexities",
+        "title": "Analysis & Complexities",
+        "syllabus": "Asymptotic notations (O, Ω, Θ), recurrence relations (Master theorem, substitution method), space and time complexity.",
+        "status": "pending"
+      },
+      {
+        "id": "algorithms-core-paradigms",
+        "title": "Core Paradigms",
+        "syllabus": "Divide and Conquer (Merge Sort, Quick Sort, Binary Search), Greedy Algorithms (Huffman coding, fractional knapsack), Dynamic Programming (0/1 knapsack, LCS, matrix chain multiplication).",
+        "status": "pending"
+      },
+      {
+        "id": "algorithms-graph-algorithms",
+        "title": "Graph Algorithms",
+        "syllabus": "BFS, DFS, topological sorting, Minimum Spanning Trees (Prim’s, Kruskal’s), Single-Source Shortest Paths (Dijkstra’s, Bellman-Ford), All-Pairs Shortest Path (Floyd-Warshall).",
+        "status": "pending"
+      }
     ]
   },
   {
@@ -81,15 +164,20 @@ window.SUBJECTS_MANIFEST = [
     "order": 6,
     "title": "Theory of Computation & Compiler Design",
     "icon": "⚙️",
-    "description": "Regular Expressions, Finite Automata, Context-Free Grammars, Turing Machines, Lexical Analysis & Parsing.",
-    "topicsCount": 6,
+    "dataFile": "toc-cd.json",
     "topics": [
-      { "id": "finite-automata", "title": "Regular Expressions & Finite Automata (DFA/NFA)", "status": "coming_soon" },
-      { "id": "context-free-languages", "title": "Context-Free Grammars & Pushdown Automata", "status": "coming_soon" },
-      { "id": "turing-machines", "title": "Turing Machines & Decidability (Halting Problem)", "status": "coming_soon" },
-      { "id": "lexical-analysis", "title": "Lexical Analysis & Token Generation", "status": "coming_soon" },
-      { "id": "parsing-techniques", "title": "Syntax Analysis & Parsing (LL & LR Parsers)", "status": "coming_soon" },
-      { "id": "code-optimization", "title": "Intermediate Code Generation & Optimization", "status": "coming_soon" }
+      {
+        "id": "toc-cd-toc",
+        "title": "TOC",
+        "syllabus": "Regular languages, Deterministic & Non-Deterministic Finite Automata (DFA, NFA), regular expressions, equivalence of DFA and NFA, pumping lemma for regular languages, Context-Free Grammars (CFG), Pushdown Automata (PDA), Turing Machines, Chomsky hierarchy, decidability, halting problem.",
+        "status": "pending"
+      },
+      {
+        "id": "toc-cd-compiler-design",
+        "title": "Compiler Design",
+        "syllabus": "Phases of compilation, lexical analysis, regular definitions, token recognition; Parsing techniques (Top-Down: LL(1), Bottom-Up: LR(0), SLR(1), LALR(1), CLR(1)); Syntax-directed translation (SDT), intermediate code generation (three-address code), basic blocks, flow graphs, runtime environments.",
+        "status": "pending"
+      }
     ]
   },
   {
@@ -97,15 +185,38 @@ window.SUBJECTS_MANIFEST = [
     "order": 7,
     "title": "Operating Systems",
     "icon": "🖥️",
-    "description": "Process Management, CPU Scheduling, Synchronization, Deadlocks, Memory Management & File Systems.",
-    "topicsCount": 6,
+    "dataFile": "os.json",
     "topics": [
-      { "id": "process-management", "title": "Process Management", "status": "ready" },
-      { "id": "cpu-scheduling", "title": "CPU Scheduling Algorithms", "status": "coming_soon" },
-      { "id": "process-sync", "title": "Process Synchronization & Deadlocks", "status": "coming_soon" },
-      { "id": "memory-management", "title": "Memory Management & Virtual Memory", "status": "coming_soon" },
-      { "id": "storage-management", "title": "Storage Management & Disk Scheduling", "status": "coming_soon" },
-      { "id": "file-systems", "title": "File Systems & System Calls", "status": "coming_soon" }
+      {
+        "id": "os-process-management",
+        "title": "Process Management",
+        "syllabus": "Process states, Process Control Block (PCB), thread concepts, CPU scheduling algorithms (FCFS, SJF, Round Robin, Priority Scheduling, Multilevel Queue).",
+        "status": "done"
+      },
+      {
+        "id": "os-synchronization-concurrency",
+        "title": "Synchronization & Concurrency",
+        "syllabus": "Race conditions, critical section problem, Peterson’s solution, semaphores, mutexes, monitors, classical synchronization problems (Producer-Consumer, Reader-Writer, Dining Philosophers).",
+        "status": "pending"
+      },
+      {
+        "id": "os-deadlocks",
+        "title": "Deadlocks",
+        "syllabus": "Conditions for deadlock, resource allocation graphs, deadlock prevention, avoidance (Banker’s algorithm), detection, and recovery.",
+        "status": "pending"
+      },
+      {
+        "id": "os-memory-management",
+        "title": "Memory Management",
+        "syllabus": "Contiguous allocation, paging, segmentation, demand paging, page replacement algorithms (FIFO, Optimal, LRU), thrashing.",
+        "status": "pending"
+      },
+      {
+        "id": "os-storage-file-systems",
+        "title": "Storage & File Systems",
+        "syllabus": "File directory structures, disk scheduling algorithms (FCFS, SSTF, SCAN, C-SCAN, LOOK), RAID architectures.",
+        "status": "pending"
+      }
     ]
   },
   {
@@ -113,14 +224,32 @@ window.SUBJECTS_MANIFEST = [
     "order": 8,
     "title": "Database Management Systems",
     "icon": "🗄️",
-    "description": "ER Model, Relational Algebra, SQL, Normalization, Transactions, Concurrency Control & Indexing.",
-    "topicsCount": 5,
+    "dataFile": "dbms.json",
     "topics": [
-      { "id": "er-relational-model", "title": "ER Diagrams & Relational Model", "status": "coming_soon" },
-      { "id": "sql-queries", "title": "Relational Algebra & Advanced SQL Queries", "status": "coming_soon" },
-      { "id": "normalization", "title": "Functional Dependencies & Normalization (1NF to BCNF)", "status": "coming_soon" },
-      { "id": "transaction-concurrency", "title": "Transactions, ACID Properties & Concurrency Control", "status": "coming_soon" },
-      { "id": "indexing-b-trees", "title": "File Indexing, B-Trees & B+ Trees", "status": "coming_soon" }
+      {
+        "id": "dbms-data-modeling",
+        "title": "Data Modeling",
+        "syllabus": "ER diagrams, relational model, constraints, relational algebra, relational calculus.",
+        "status": "pending"
+      },
+      {
+        "id": "dbms-sql",
+        "title": "SQL",
+        "syllabus": "DDL, DML, DCL, joins, nested subqueries, views, triggers, indexing.",
+        "status": "pending"
+      },
+      {
+        "id": "dbms-normalization",
+        "title": "Normalization",
+        "syllabus": "Functional dependencies, normal forms (1NF, 2NF, 3NF, BCNF), dependency preservation, lossless-join decomposition.",
+        "status": "pending"
+      },
+      {
+        "id": "dbms-transactions-concurrency",
+        "title": "Transactions & Concurrency",
+        "syllabus": "ACID properties, serializability (conflict and view serializability), concurrency control protocols (lock-based protocols, 2PL, timestamp ordering), deadlock handling, crash recovery and write-ahead logging (WAL).",
+        "status": "pending"
+      }
     ]
   },
   {
@@ -128,15 +257,39 @@ window.SUBJECTS_MANIFEST = [
     "order": 9,
     "title": "Computer Networks",
     "icon": "🌐",
-    "description": "OSI & TCP/IP Models, Data Link Layer, IPv4/IPv6, Subnetting, Routing Protocols & Application Protocols.",
-    "topicsCount": 6,
+    "dataFile": "cn.json",
     "topics": [
-      { "id": "network-models", "title": "OSI & TCP/IP Reference Models", "status": "coming_soon" },
-      { "id": "data-link-layer", "title": "Data Link Layer, Framing & Sliding Window", "status": "coming_soon" },
-      { "id": "network-layer-ip", "title": "Network Layer, IPv4/IPv6 & Subnetting (CIDR)", "status": "coming_soon" },
-      { "id": "routing-protocols", "title": "Routing Protocols (Distance Vector, Link State, OSPF, BGP)", "status": "coming_soon" },
-      { "id": "transport-layer", "title": "Transport Layer (TCP, UDP, Flow & Congestion Control)", "status": "coming_soon" },
-      { "id": "application-layer", "title": "Application Layer Protocols (DNS, HTTP/S, SMTP, DHCP)", "status": "coming_soon" }
+      {
+        "id": "cn-network-models",
+        "title": "Network Models",
+        "syllabus": "OSI 7-layer reference model, TCP/IP protocol suite.",
+        "status": "pending"
+      },
+      {
+        "id": "cn-physical-data-link-layers",
+        "title": "Physical & Data Link Layers",
+        "syllabus": "Transmission media, framing, flow control (Stop-and-Wait, Go-Back-N, Selective Repeat), error detection/correction (CRC, Hamming code), MAC sublayer, CSMA/CD, Ethernet, switches, bridges.",
+        "status": "pending"
+      },
+      {
+        "id": "cn-network-layer",
+        "title": "Network Layer",
+        "syllabus": "IPv4 and IPv6 packet structures, classful and classless IP addressing (CIDR), subnetting, supernetting, routing algorithms (Distance Vector, Link State), NAT, ARP, DHCP, ICMP.",
+        "status": "pending"
+      },
+      {
+        "id": "cn-transport-layer",
+        "title": "Transport Layer",
+        "syllabus": "Connection management, TCP vs. UDP, flow control, TCP congestion control algorithms (Slow Start, Congestion Avoidance, Fast Retransmit, Fast Recovery).",
+        "status": "pending"
+      },
+      {
+        "id": "cn-application-layer",
+        "title": "Application Layer",
+        "syllabus": "DNS, HTTP/HTTPS, FTP, SMTP, POP3, IMAP, sockets.",
+        "status": "pending"
+      }
     ]
   }
-];
+]
+;

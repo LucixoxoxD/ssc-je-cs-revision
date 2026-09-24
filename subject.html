@@ -198,7 +198,7 @@
             <div class="topics-list-container">
               ${(subject.topics || []).map((topic, idx) => {
                 const topicIndexStr = String(idx + 1).padStart(2, '0');
-                const isReady = topic.status === 'ready';
+                const isReady = topic.status === 'done' || topic.status === 'ready';
                 const isRevised = window.StorageManager.isRevised(subject.id, topic.id);
                 const isBookmarked = window.StorageManager.isBookmarked(subject.id, topic.id);
                 const topicUrl = `topic.html?id=${subject.id}/${topic.id}`;
@@ -208,15 +208,20 @@
                     <div class="topic-item-left">
                       <div class="topic-index-badge">${topicIndexStr}</div>
                       <div class="topic-item-meta">
-                        <a href="${topicUrl}" class="topic-item-title-link">
-                          <span>${topic.title}</span>
-                          ${isReady ? '<span style="font-size: 0.8rem; color: var(--primary);">→</span>' : ''}
-                        </a>
-                        <div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                          <a href="${topicUrl}" class="topic-item-title-link">
+                            <span>${topic.title}</span>
+                            ${isReady ? '<span style="font-size: 0.8rem; color: var(--primary);">→</span>' : ''}
+                          </a>
                           <span class="status-badge ${isReady ? 'ready' : 'coming-soon'}">
-                            ${isReady ? '● Ready to Revise' : 'Coming Soon'}
+                            ${isReady ? '● Ready to Revise' : 'Pending'}
                           </span>
                         </div>
+                        ${topic.syllabus ? `
+                          <p class="topic-item-syllabus" style="font-size: 0.825rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">
+                            ${escapeHtml(topic.syllabus)}
+                          </p>
+                        ` : ''}
                       </div>
                     </div>
 

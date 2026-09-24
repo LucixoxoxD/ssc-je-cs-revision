@@ -1,4 +1,4 @@
-// Universal Data Loader: Reads JSON via fetch() with automatic script-tag fallback for offline file:// execution
+// Universal Data Loader: Reads syllabus structure from subjects.json and content from /data files
 (function() {
   const cache = {
     subjects: null,
@@ -7,7 +7,6 @@
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
-      // Check if already in DOM
       const existing = document.querySelector(`script[src="${src}"]`);
       if (existing) {
         return resolve();
@@ -27,8 +26,19 @@
         return cache.subjects;
       }
 
-      // 1. Try fetch if not on file:// protocol
+      // 1. Try fetch subjects.json from root or data/ if not on file:// protocol
       if (window.location.protocol !== 'file:') {
+        try {
+          const res = await fetch('subjects.json');
+          if (res.ok) {
+            const data = await res.json();
+            cache.subjects = data;
+            return data;
+          }
+        } catch (e) {
+          // Try fallback path
+        }
+
         try {
           const res = await fetch('data/subjects.json');
           if (res.ok) {
@@ -37,11 +47,11 @@
             return data;
           }
         } catch (e) {
-          console.warn('Fetch failed for subjects.json, trying fallback...', e);
+          console.warn('Fetch failed for subjects.json, trying script fallback...', e);
         }
       }
 
-      // 2. Check if subjects.js already loaded into window
+      // 2. Check if subjects.js is already loaded in window
       if (window.SUBJECTS_MANIFEST && Array.isArray(window.SUBJECTS_MANIFEST)) {
         cache.subjects = window.SUBJECTS_MANIFEST;
         return cache.subjects;
@@ -58,46 +68,82 @@
         console.error('Offline fallback loading error for subjects:', err);
       }
 
-      throw new Error('Unable to load subjects manifest data.');
+      throw new Error('Unable to load syllabus manifest data from subjects.json.');
     },
 
     async getSubject(subjectId) {
+      const subjects = await this.getSubjects();
+      const subjectMeta = subjects.find(s => s.id === subjectId);
+      if (!subjectMeta) {
+        throw new Error(`Subject "${subjectId}" not found in syllabus.`);
+      }
+
+      // Clone syllabus structure from subjects.json (the Single Source of Truth)
+      const subject = {
+        ...subjectMeta,
+        topics: subjectMeta.topics.map(t => ({ ...t }))
+      };
+
+      // Load educational content from dataFile
+      const dataFileName = subjectMeta.dataFile || `${subjectId}.json`;
+      let contentData = null;
+
       if (cache.subjectDetails[subjectId]) {
-        return cache.subjectDetails[subjectId];
-      }
-
-      // 1. Try fetch if not on file://
-      if (window.location.protocol !== 'file:') {
-        try {
-          const res = await fetch(`data/${subjectId}.json`);
-          if (res.ok) {
-            const data = await res.json();
-            cache.subjectDetails[subjectId] = data;
-            return data;
+        contentData = cache.subjectDetails[subjectId];
+      } else {
+        if (window.location.protocol !== 'file:') {
+          try {
+            const res = await fetch(`data/${dataFileName}`);
+            if (res.ok) {
+              contentData = await res.json();
+              cache.subjectDetails[subjectId] = contentData;
+            }
+          } catch (e) {
+            console.warn(`Fetch failed for data/${dataFileName}, trying fallback...`, e);
           }
-        } catch (e) {
-          console.warn(`Fetch failed for ${subjectId}.json, trying fallback...`, e);
+        }
+
+        if (!contentData && window.SUBJECT_DATA && window.SUBJECT_DATA[subjectId]) {
+          contentData = window.SUBJECT_DATA[subjectId];
+          cache.subjectDetails[subjectId] = contentData;
+        }
+
+        if (!contentData) {
+          try {
+            const scriptName = dataFileName.replace(/\.json$/, '.js');
+            await loadScript(`data/${scriptName}`);
+            if (window.SUBJECT_DATA && window.SUBJECT_DATA[subjectId]) {
+              contentData = window.SUBJECT_DATA[subjectId];
+              cache.subjectDetails[subjectId] = contentData;
+            }
+          } catch (err) {
+            // Not all pending topics require content yet
+          }
         }
       }
 
-      // 2. Check if already present on window.SUBJECT_DATA
-      if (window.SUBJECT_DATA && window.SUBJECT_DATA[subjectId]) {
-        cache.subjectDetails[subjectId] = window.SUBJECT_DATA[subjectId];
-        return cache.subjectDetails[subjectId];
+      // Merge educational content into official syllabus topics
+      if (contentData && Array.isArray(contentData.topics)) {
+        contentData.topics.forEach(cTopic => {
+          const target = subject.topics.find(t => 
+            t.id === cTopic.id || 
+            (cTopic.alias && t.id === cTopic.alias) ||
+            (t.id === 'os-process-management' && (cTopic.id === 'process-management' || cTopic.alias === 'process-management'))
+          );
+
+          if (target) {
+            const { id, title, syllabus, status } = target;
+            Object.assign(target, cTopic, {
+              id,
+              title,
+              syllabus,
+              status: (cTopic.status === 'ready' || cTopic.status === 'done' || status === 'done') ? 'done' : status
+            });
+          }
+        });
       }
 
-      // 3. Fallback: dynamically load data/<subjectId>.js
-      try {
-        await loadScript(`data/${subjectId}.js`);
-        if (window.SUBJECT_DATA && window.SUBJECT_DATA[subjectId]) {
-          cache.subjectDetails[subjectId] = window.SUBJECT_DATA[subjectId];
-          return cache.subjectDetails[subjectId];
-        }
-      } catch (err) {
-        console.error(`Offline fallback loading error for subject ${subjectId}:`, err);
-      }
-
-      throw new Error(`Unable to load data for subject "${subjectId}".`);
+      return subject;
     },
 
     async getTopic(subjectId, topicId) {
@@ -105,7 +151,11 @@
       if (!subject || !subject.topics) {
         return null;
       }
-      const topic = subject.topics.find(t => t.id === topicId);
+      const topic = subject.topics.find(t => 
+        t.id === topicId || 
+        (t.id === 'os-process-management' && topicId === 'process-management') ||
+        (t.id === 'process-management' && topicId === 'os-process-management')
+      );
       return { subject, topic };
     }
   };

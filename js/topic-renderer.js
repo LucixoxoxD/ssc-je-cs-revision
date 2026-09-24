@@ -76,8 +76,8 @@
         return;
       }
 
-      // Check if topic is marked "coming_soon"
-      if (topic.status === 'coming_soon' || !topic.explanation) {
+      // Check if topic is pending or lacks content
+      if (topic.status === 'pending' || topic.status === 'coming_soon' || !topic.explanation) {
         const topicIndex = subject.topics.findIndex(t => t.id === topic.id);
         const prevTopic = topicIndex > 0 ? subject.topics[topicIndex - 1] : null;
         const nextTopic = topicIndex < subject.topics.length - 1 ? subject.topics[topicIndex + 1] : null;
@@ -96,8 +96,18 @@
           <div class="coming-soon-container">
             <div class="coming-soon-icon">⏳</div>
             <h1 class="coming-soon-title">${topic.title}</h1>
+            ${topic.syllabus ? `
+              <div style="max-width: 680px; margin: 1.25rem auto 1.5rem; padding: 1.1rem 1.25rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 8px; text-align: left;">
+                <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--primary); letter-spacing: 0.05em; margin-bottom: 0.4rem;">
+                  Official Syllabus Scope
+                </div>
+                <p style="font-size: 0.925rem; line-height: 1.55; color: var(--text-secondary); margin: 0;">
+                  ${escapeHtml(topic.syllabus)}
+                </p>
+              </div>
+            ` : ''}
             <p class="coming-soon-desc">
-              Detailed revision notes, step-by-step solved examples, and practice MCQs for this topic are currently being compiled according to the SSC JE syllabus.
+              Detailed revision notes, step-by-step solved examples, and practice MCQs for this topic are currently being compiled according to the official syllabus.
             </p>
             <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
               <a href="subject.html?id=${subject.id}" class="nav-btn">Back to ${subject.title}</a>
