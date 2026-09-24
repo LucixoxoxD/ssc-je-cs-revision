@@ -1,0 +1,162 @@
+// Offline fallback for file:// protocol
+window.SUBJECT_DATA = window.SUBJECT_DATA || {};
+window.SUBJECT_DATA["os"] = {
+  "id": "os",
+  "order": 7,
+  "title": "Operating Systems",
+  "icon": "🖥️",
+  "description": "Process Management, CPU Scheduling, Synchronization, Deadlocks, Memory Management & File Systems.",
+  "topics": [
+    {
+      "id": "process-management",
+      "title": "Process Management",
+      "status": "ready",
+      "explanation": "A process is a program in execution, representing the active unit of work in modern operating systems. While a program is a passive entity stored on disk (such as an executable file like a.out or app.exe), a process is an active entity loaded into main memory (RAM) with a dedicated address space and assigned system resources. A process's memory layout is logically organized into four segments: Text (compiled machine code), Data (global and static variables), Heap (dynamically allocated memory at runtime), and Stack (local variables, function parameters, and return addresses). Processes move through distinct states during their life cycle: New (being created), Ready (waiting in RAM for CPU assignment), Running (actively executing instructions on the CPU), Waiting/Blocked (waiting for an I/O event or signal), and Terminated (execution completed, awaiting resource reclamation). The OS tracks and manages every process using a kernel data structure called the Process Control Block (PCB). Switching the CPU from one process to another involves saving the context of the running process and restoring that of the incoming process—a procedure known as Context Switching.",
+      "keyPoints": [
+        "Process vs Program: A program is passive (stored on disk); a process is active (resides in RAM with Program Counter and CPU registers).",
+        "Process Control Block (PCB): Contains PID (Process ID), Process State, Program Counter (PC), CPU registers (accumulators, index registers), CPU scheduling priority, Memory management info (base/limit registers, page tables), Accounting info, and List of open I/O files.",
+        "Context Switch Overhead: Context switching is pure system overhead; the CPU performs no productive computational work during the switch. Minimizing context switch time is critical for throughput.",
+        "fork() Process Creation: In Unix-like OS, fork() creates an exact duplicate child process. For n consecutive fork() calls, total processes generated = 2^n, and total child processes generated = 2^n - 1.",
+        "Zombie Process: A process that has finished execution (via exit()) but still has an entry in the OS process table because its parent has not yet read its termination status via wait().",
+        "Orphan Process: A process whose parent process terminated before the child finished. In Unix, orphan processes are adopted by the init process (PID 1) or systemd, which periodically calls wait() to reap them.",
+        "Scheduler Hierarchy: Long-Term Scheduler (Job Scheduler) loads jobs from disk spool to RAM and controls the Degree of Multiprogramming; Short-Term Scheduler (CPU Scheduler) selects ready processes for CPU execution at high frequency (10-100 ms); Medium-Term Scheduler (Swapper) swaps processes between RAM and swap space to manage memory pressure.",
+        "Preemptive vs Non-Preemptive Scheduling: Non-preemptive scheduling occurs only on transitions: Running → Waiting (I/O request) or Running → Terminated. Transitions: Running → Ready (timer interrupt) or Waiting → Ready (I/O complete) represent preemptive scheduling."
+      ],
+      "tables": [
+        {
+          "caption": "Comparison: Process vs Thread (Lightweight Process)",
+          "headers": ["Parameter", "Process", "Thread"],
+          "rows": [
+            ["Definition", "Independent program execution unit with isolated address space", "Lightweight execution stream within a parent process"],
+            ["Address Space", "Independent virtual memory space allocated per process", "Shares code, data, heap, and open files with peer threads"],
+            ["Creation Overhead", "Heavyweight (allocates page tables, file descriptors, PCB)", "Lightweight (allocates only private stack and register set)"],
+            ["Context Switch Time", "Higher (requires flushing TLB, switching page tables and PCB)", "Lower (TLB retained; only registers, PC, and stack pointer swapped)"],
+            ["Inter-Communication", "Requires IPC mechanisms (Pipes, Message Queues, Shared Memory)", "Direct communication via shared memory and global variables"],
+            ["Fault Isolation", "High (a crash in one process does not affect others)", "Low (an unhandled fault in one thread can crash the entire process)"]
+          ]
+        },
+        {
+          "caption": "Comparison: Operating System Schedulers",
+          "headers": ["Scheduler", "State Transition", "Frequency of Invocation", "Primary Responsibility"],
+          "rows": [
+            ["Long-Term (Job Scheduler)", "New → Ready", "Infrequent (seconds / minutes)", "Controls Degree of Multiprogramming & process mix (CPU vs I/O bound)"],
+            ["Short-Term (CPU Scheduler)", "Ready → Running", "Extremely frequent (10 to 100 ms)", "Maximizes CPU utilization, throughput, and fairness"],
+            ["Medium-Term (Swapper)", "Ready / Blocked ↔ Suspended", "Intermediate frequency", "Alleviates memory bottlenecks by swapping processes to/from disk"]
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "question": "Consider the following C code segment. Calculate the total number of processes created, the number of child processes created, and how many times 'SSC-JE' will be printed:\n\n```c\n#include <stdio.h>\n#include <unistd.h>\nint main() {\n    fork();\n    fork();\n    fork();\n    printf(\"SSC-JE\\n\");\n    return 0;\n}\n```",
+          "steps": [
+            "Step 1: Identify the number of consecutive, unconditional fork() invocations. Here, n = 3.",
+            "Step 2: Recall the formula for total processes produced by n consecutive fork() calls: N_total = 2^n = 2^3 = 8 processes (this count includes the original parent process).",
+            "Step 3: Calculate the number of new child processes: N_child = 2^n - 1 = 2^3 - 1 = 8 - 1 = 7 child processes.",
+            "Step 4: Since the printf() statement occurs after all fork() calls without any conditional guards, every single active process will execute it.",
+            "Step 5: Therefore, 'SSC-JE' is printed 2^3 = 8 times in total."
+          ],
+          "answer": "Total processes = 8, Child processes = 7, and 'SSC-JE' is printed 8 times."
+        },
+        {
+          "question": "A uniprocessor time-sharing operating system assigns a time quantum of 18 ms to each process. Every context switch between two processes takes 2 ms of CPU time. What is the effective CPU utilization of this system, and how much percentage is lost to context switching overhead?",
+          "steps": [
+            "Step 1: Determine the useful CPU execution time per scheduling cycle: Useful Time = Time Quantum = 18 ms.",
+            "Step 2: Determine total cycle duration: Total Cycle Time = Useful Time + Context Switch Overhead = 18 ms + 2 ms = 20 ms.",
+            "Step 3: Apply the CPU utilization formula: CPU Utilization = (Useful CPU Time / Total Cycle Time) * 100.",
+            "Step 4: Compute: (18 / 20) * 100 = 0.90 * 100 = 90%.",
+            "Step 5: Compute overhead: 100% - 90% = 10% lost to context switching."
+          ],
+          "answer": "Effective CPU utilization is 90%; 10% is lost to context switching overhead."
+        }
+      ],
+      "traps": [
+        "Trap 1 (fork in loops): If fork() is inside a loop 'for(i=0; i<n; i++) fork();', the total number of processes created is 2^n, NOT n+1! Each existing process splits into two on every iteration.",
+        "Trap 2 (Zombie vs Orphan): A Zombie process has died (terminated) but its parent hasn't called wait(), leaving its PCB in the process table. An Orphan process is alive, but its parent died first (it is adopted by init / PID 1). Mnemonic: Orphans lose their parents; Zombies are dead but still haunt the table!",
+        "Trap 3 (Dispatcher vs Scheduler): The CPU Scheduler only selects WHICH process runs next from the ready queue. The Dispatcher is the low-level mechanism that actually loads that process into the CPU (performs context switch, switches to user mode, and jumps to the program counter).",
+        "Trap 4 (Preemption Transition Ambiguity): The transition from Waiting → Ready (e.g., I/O finished) is NOT preemption! Preemption strictly means taking the CPU away from an actively Running process against its will (Running → Ready)."
+      ],
+      "practice": [
+        {
+          "q": "Which of the following process state transitions is initiated voluntarily by the executing process rather than by the OS scheduler or an external interrupt?",
+          "options": [
+            "Running to Ready",
+            "Running to Waiting (Blocked)",
+            "Ready to Running",
+            "Waiting to Ready"
+          ],
+          "answer": 1,
+          "why": "A transition from Running to Waiting occurs voluntarily when the running process issues a blocking system call (such as requesting I/O or waiting for a shared mutex). In contrast, Running to Ready is forced by the timer interrupt (preemption), and Ready to Running is controlled by the CPU dispatcher."
+        },
+        {
+          "q": "How many child processes will be created if a C program executes the fork() system call 4 times consecutively without conditional statements?",
+          "options": [
+            "4",
+            "8",
+            "15",
+            "16"
+          ],
+          "answer": 2,
+          "why": "The total number of processes created is 2^n = 2^4 = 16 (including the initial parent process). Therefore, the number of child processes created is 2^n - 1 = 16 - 1 = 15."
+        },
+        {
+          "q": "Which operating system scheduler is directly responsible for controlling the 'Degree of Multiprogramming'?",
+          "options": [
+            "Short-Term Scheduler (CPU Scheduler)",
+            "Medium-Term Scheduler (Swapper)",
+            "Long-Term Scheduler (Job Scheduler)",
+            "I/O Device Scheduler"
+          ],
+          "answer": 2,
+          "why": "The Long-Term Scheduler (Job Scheduler) selects jobs from the secondary storage disk pool and brings them into main memory (RAM). The count of processes currently in main memory is the Degree of Multiprogramming."
+        },
+        {
+          "q": "What is the status of a process that has completed its execution via exit(), but whose parent process has not yet executed the wait() system call?",
+          "options": [
+            "Orphan process",
+            "Zombie process",
+            "Daemon process",
+            "Suspended Ready process"
+          ],
+          "answer": 1,
+          "why": "When a child process terminates, its resources are released, but its entry in the process table (containing exit code and PID) remains until the parent calls wait() to read it. This state is known as a Zombie process."
+        },
+        {
+          "q": "Which of the following components is NOT stored in the Process Control Block (PCB) of a process?",
+          "options": [
+            "Program Counter (PC)",
+            "CPU Scheduling Priority",
+            "Bootstrap Loader instructions",
+            "List of open file descriptors"
+          ],
+          "answer": 2,
+          "why": "The Bootstrap Loader is a firmware program stored permanently in ROM/Flash memory (BIOS/UEFI) to initialize hardware on boot. The PCB is a dynamic kernel structure storing process runtime states like PC, registers, open files, and memory limits."
+        }
+      ]
+    },
+    {
+      "id": "cpu-scheduling",
+      "title": "CPU Scheduling Algorithms",
+      "status": "coming_soon"
+    },
+    {
+      "id": "process-sync",
+      "title": "Process Synchronization & Deadlocks",
+      "status": "coming_soon"
+    },
+    {
+      "id": "memory-management",
+      "title": "Memory Management & Virtual Memory",
+      "status": "coming_soon"
+    },
+    {
+      "id": "storage-management",
+      "title": "Storage Management & Disk Scheduling",
+      "status": "coming_soon"
+    },
+    {
+      "id": "file-systems",
+      "title": "File Systems & System Calls",
+      "status": "coming_soon"
+    }
+  ]
+};

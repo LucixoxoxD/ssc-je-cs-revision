@@ -1,0 +1,16 @@
+// Offline fallback for file:// protocol
+window.SUBJECT_DATA = window.SUBJECT_DATA || {};
+window.SUBJECT_DATA["dbms"] = {
+  "id": "dbms",
+  "order": 8,
+  "title": "Database Management Systems",
+  "icon": "🗄️",
+  "description": "ER Model, Relational Algebra, SQL, Normalization, Transactions, Concurrency Control & Indexing.",
+  "topics": [
+    { "id": "er-relational-model", "title": "ER Diagrams & Relational Model", "status": "coming_soon" },
+    { "id": "sql-queries", "title": "Relational Algebra & Advanced SQL Queries", "status": "coming_soon" },
+    { "id": "normalization", "title": "Functional Dependencies & Normalization (1NF to BCNF)", "status": "coming_soon" },
+    { "id": "transaction-concurrency", "title": "Transactions, ACID Properties & Concurrency Control", "status": "coming_soon" },
+    { "id": "indexing-b-trees", "title": "File Indexing, B-Trees & B+ Trees", "status": "coming_soon" }
+  ]
+};

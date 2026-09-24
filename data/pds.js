@@ -1,0 +1,16 @@
+// Offline fallback for file:// protocol
+window.SUBJECT_DATA = window.SUBJECT_DATA || {};
+window.SUBJECT_DATA["pds"] = {
+  "id": "pds",
+  "order": 4,
+  "title": "Programming & Data Structures",
+  "icon": "⌨️",
+  "description": "C Programming, Pointers, Arrays, Stacks, Queues, Linked Lists, Trees & Binary Search Trees.",
+  "topics": [
+    { "id": "c-programming", "title": "C Programming Basics, Pointers & Recursion", "status": "coming_soon" },
+    { "id": "arrays-strings", "title": "Arrays, Strings & Structures", "status": "coming_soon" },
+    { "id": "stacks-queues", "title": "Stacks, Queues & Applications", "status": "coming_soon" },
+    { "id": "linked-lists", "title": "Linked Lists & Pointer Operations", "status": "coming_soon" },
+    { "id": "trees-bst", "title": "Binary Trees & Binary Search Trees (BST)", "status": "coming_soon" }
+  ]
+};

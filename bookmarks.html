@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saved Bookmarks | SSC JE Revision Portal</title>
+
+  <!-- Prevent theme flicker (FOUC) -->
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function() {
+      const saved = localStorage.getItem('ssc_je_theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = saved || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Typography & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-link" aria-label="SSC JE Revision Portal Home">
+        <span class="brand-badge">SSC JE</span>
+        <div class="brand-title">
+          <span class="brand-title-main">CS & IT Revision</span>
+          <span class="brand-title-sub">Junior Engineer Syllabus</span>
+        </div>
+      </a>
+
+      <div class="header-nav">
+        <a href="index.html" class="nav-btn" title="Back to All Subjects">
+          <span class="icon">🏠</span>
+          <span>Subjects</span>
+        </a>
+        <a href="bookmarks.html" class="nav-btn active" title="View Bookmarked Topics">
+          <span class="icon">⭐</span>
+          <span>Bookmarks</span>
+          <span id="nav-bookmark-count" class="bookmark-counter-badge" style="display: none;">0</span>
+        </a>
+        <button class="theme-toggle-btn" type="button" aria-label="Toggle light or dark theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      
+      <!-- Breadcrumb Navigation -->
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ul class="breadcrumb-list">
+          <li class="breadcrumb-item"><a href="index.html">🏠 Home</a></li>
+          <li class="breadcrumb-separator">/</li>
+          <li class="breadcrumb-current">Bookmarks</li>
+        </ul>
+      </nav>
+
+      <section class="section-title-wrap">
+        <div>
+          <h1 class="section-title">Saved Revision Topics</h1>
+          <p class="section-subtext">Quick access to high-priority topics saved for your last-minute revision.</p>
+        </div>
+        <div id="bookmarks-count-tag" class="status-badge ready">
+          0 Saved Topics
+        </div>
+      </section>
+
+      <!-- Bookmarks List Container -->
+      <div id="bookmarks-container" class="bookmarks-grid">
+        <div style="text-align: center; padding: 2rem;">
+          Loading bookmarks...
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>SSC JE (CS & IT) Revision Portal</strong> &bull; Complete self-study & revision guide
+      </div>
+      <div>
+        <a href="index.html">← Back to Home</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/theme.js"></script>
+  <script src="js/storage.js"></script>
+
+  <!-- Page Initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderBookmarks();
+
+      window.addEventListener('bookmarks-changed', renderBookmarks);
+      window.addEventListener('progress-changed', renderBookmarks);
+
+      function renderBookmarks() {
+        const bookmarks = window.StorageManager.getBookmarks();
+        const container = document.getElementById('bookmarks-container');
+        const countTag = document.getElementById('bookmarks-count-tag');
+        const navBadge = document.getElementById('nav-bookmark-count');
+
+        if (navBadge) {
+          navBadge.textContent = bookmarks.length;
+          navBadge.style.display = bookmarks.length > 0 ? 'inline-flex' : 'none';
+        }
+
+        if (countTag) {
+          countTag.textContent = `${bookmarks.length} Saved Topic${bookmarks.length === 1 ? '' : 's'}`;
+        }
+
+        if (!bookmarks || bookmarks.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state-box">
+              <div class="empty-state-icon">⭐</div>
+              <h2 class="empty-state-title">No Bookmarked Topics Yet</h2>
+              <p class="empty-state-desc">
+                When studying syllabus topics, click the <strong>Bookmark (☆)</strong> button to pin formulas and revision notes here for quick access before your exam.
+              </p>
+              <a href="index.html" class="nav-btn" style="background-color: var(--primary); color: #ffffff; border-color: var(--primary);">
+                Explore All 9 Subjects
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = bookmarks.map(b => {
+          const isRevised = window.StorageManager.isRevised(b.subjectId, b.topicId);
+          const topicUrl = `topic.html?id=${b.id}`;
+
+          return `
+            <article class="bookmark-item-card ${isRevised ? 'is-revised' : ''}" id="card-${b.id.replace('/', '-')}">
+              <div class="topic-item-left">
+                <div class="topic-index-badge">${b.icon || '📌'}</div>
+                <div class="topic-item-meta">
+                  <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--primary); letter-spacing: 0.04em;">
+                    ${escapeHtml(b.subjectTitle)}
+                  </div>
+                  <a href="${topicUrl}" class="topic-item-title-link">
+                    ${escapeHtml(b.title)}
+                  </a>
+                </div>
+              </div>
+
+              <div class="topic-item-actions">
+                <label class="checkbox-label" title="Mark this topic as revised">
+                  <input 
+                    type="checkbox" 
+                    class="bookmark-revise-checkbox" 
+                    data-subjectid="${b.subjectId}" 
+                    data-topicid="${b.topicId}" 
+                    ${isRevised ? 'checked' : ''}
+                  >
+                  <span>${isRevised ? 'Revised ✓' : 'Mark revised'}</span>
+                </label>
+
+                <a href="${topicUrl}" class="nav-btn" style="padding: 0.4rem 0.75rem; font-size: 0.85rem;">
+                  Open Topic →
+                </a>
+
+                <button 
+                  class="btn-icon-action bookmarked btn-remove-bookmark" 
+                  data-key="${b.id}"
+                  title="Remove from Bookmarks"
+                  type="button"
+                >
+                  ✕
+                </button>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        // Attach listeners for revision checkboxes
+        container.querySelectorAll('.bookmark-revise-checkbox').forEach(cb => {
+          cb.addEventListener('change', (e) => {
+            const sid = e.target.dataset.subjectid;
+            const tid = e.target.dataset.topicid;
+            window.StorageManager.setRevised(sid, tid, e.target.checked);
+          });
+        });
+
+        // Attach listeners for remove buttons
+        container.querySelectorAll('.btn-remove-bookmark').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const key = e.currentTarget.dataset.key;
+            window.StorageManager.removeBookmark(key);
+          });
+        });
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+    });
+  </script>
+</body>
+</html>
