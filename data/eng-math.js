@@ -698,6 +698,246 @@ window.SUBJECT_DATA["eng-math"] = {
           "why": "For an orthogonal matrix, $P^T P = I$. Taking determinants: $|P^T||P| = |I| \\implies |P|^2 = 1 \\implies |P| = \\pm 1$."
         }
       ]
+    },
+    {
+      "id": "eng-math-calculus-probability",
+      "title": "Calculus & Probability",
+      "status": "done",
+      "explanation": "Calculus and Probability provide the foundational analytical machinery for optimization, continuous modeling, error analysis, and stochastic processes. For SSC JE and Scientific Assistant (IMD) Paper-I, emphasize limit evaluations (L\\'Hôpital\\'s rule), continuity conditions, maxima/minima derivative tests, Mean Value Theorems, definite integral symmetries, Bayes\\' theorem, and the core properties of Poisson and Normal distributions.\\n\\n**1. Limits, Continuity & Differentiability**\\n- **Standard Limits**: $\\\\lim_{x \\\\to 0} \\\\frac{\\\\sin x}{x} = 1$, $\\\\lim_{x \\\\to 0} \\\\frac{e^x - 1}{x} = 1$, $\\\\lim_{x \\\\to a} \\\\frac{x^n - a^n}{x - a} = n a^{n-1}$, and $\\\\lim_{x \\\\to \\\\infty} (1 + \\\\frac{1}{x})^x = e$.\\n- **L\\'Hôpital\\'s Rule**: If $\\\\lim \\\\frac{f(x)}{g(x)}$ yields indeterminate form $\\\\frac{0}{0}$ or $\\\\frac{\\\\infty}{\\\\infty}$, differentiate numerator and denominator independently: $\\\\lim \\\\frac{f(x)}{g(x)} = \\\\lim \\\\frac{f'(x)}{g'(x)}$.\\n- **Continuity**: A function $f(x)$ is continuous at $x = c$ if and only if $\\\\lim_{x \\\\to c^-} f(x) = \\\\lim_{x \\\\to c^+} f(x) = f(c)$.\\n- **Differentiability**: A function differentiable at $x = c$ is ALWAYS continuous at $c$. The converse is NOT true; continuity is a necessary but not sufficient condition for differentiability (classic exam counterexample: $f(x) = |x|$ is continuous at $x=0$, but non-differentiable because left derivative $-1 \\\\ne$ right derivative $+1$).\\n\\n**2. Maxima, Minima & Mean Value Theorems**\\n- **Local Extrema (Second Derivative Test)**: Critical points occur where $f'(x) = 0$. If $f'(c) = 0$:\\n  1. $f''(c) < 0 \\\\implies$ Local Maximum at $x = c$.\\n  2. $f''(c) > 0 \\\\implies$ Local Minimum at $x = c$.\\n  3. $f''(c) = 0 \\\\implies$ Test inconclusive (test higher-order derivatives or sign changes).\\n- **Rolle\\'s Theorem**: If $f(x)$ is continuous on $[a, b]$, differentiable on $(a, b)$, and $f(a) = f(b)$, then there exists at least one $c \\\\in (a, b)$ such that $f'(c) = 0$.\\n- **Lagrange\\'s Mean Value Theorem (LMVT)**: If $f(x)$ is continuous on $[a, b]$ and differentiable on $(a, b)$, then $\\\\exists c \\\\in (a, b)$ such that $f'(c) = \\\\frac{f(b) - f(a)}{b - a}$.\\n\\n**3. Definite Integrals & Symmetry Properties**\\n- **Fundamental Property**: $\\\\int_a^b f(x) \\\\, dx = \\\\int_a^b f(a + b - x) \\\\, dx$.\\n- **Symmetric Interval $[-a, a]$**:\\n  1. If $f(x)$ is an **odd function** ($f(-x) = -f(x)$), then $\\\\int_{-a}^a f(x) \\\\, dx = 0$.\\n  2. If $f(x)$ is an **even function** ($f(-x) = f(x)$), then $\\\\int_{-a}^a f(x) \\\\, dx = 2 \\\\int_0^a f(x) \\\\, dx$.\\n\\n**4. Conditional Probability & Bayes\\' Theorem**\\n- **Conditional Probability**: $P(A \\\\mid B) = \\\\frac{P(A \\\\cap B)}{P(B)}$ (where $P(B) > 0$).\\n- **Independence**: Events $A$ and $B$ are independent $\\\\iff P(A \\\\cap B) = P(A) P(B) \\\\iff P(A \\\\mid B) = P(A)$.\\n- **Law of Total Probability**: If $B_1, B_2, \\\\dots, B_k$ partition the sample space, then $P(A) = \\\\sum_{i=1}^k P(A \\\\mid B_i) P(B_i)$.\\n- **Bayes\\' Theorem (Posterior Probability)**:\\n  $$P(B_j \\\\mid A) = \\\\frac{P(A \\\\mid B_j) P(B_j)}{\\\\sum_{i=1}^k P(A \\\\mid B_i) P(B_i)}$$\\n\\n**5. Random Variables, Expectation & Variance**\\n- **Expectation (Mean)**: $E[X] = \\\\sum x P(x)$ (discrete) or $\\\\int_{-\\\\infty}^\\\\infty x f(x) \\\\, dx$ (continuous). Property: $E[aX + b] = aE[X] + b$.\\n- **Variance**: $\\\\text{Var}(X) = E[X^2] - (E[X])^2$. Standard deviation $\\\\sigma = \\\\sqrt{\\\\text{Var}(X)}$.\\n- **Scaling Rule**: $\\\\text{Var}(aX + b) = a^2 \\\\text{Var}(X)$ (adding constant $b$ shifts the mean but does not alter variance).\\n\\n**6. Poisson & Normal Distributions**\\n- **Poisson Distribution**: Models rare independent events occurring at constant average rate $\\\\lambda$. PMF: $P(X = k) = \\\\frac{e^{-\\\\lambda} \\\\lambda^k}{k!}$ ($k = 0, 1, 2, \\\\dots$). Landmark property: $\\\\text{Mean} = \\\\text{Variance} = \\\\lambda$.\\n- **Normal Distribution**: Continuous symmetric bell-shaped curve denoted $X \\\\sim \\\\mathcal{N}(\\\\mu, \\\\sigma^2)$. Total area under PDF curve is $1$. Symmetric about $\\\\mu$, so $\\\\text{Mean} = \\\\text{Median} = \\\\text{Mode} = \\\\mu$. Standard normal score: $Z = \\\\frac{X - \\\\mu}{\\\\sigma} \\\\sim \\\\mathcal{N}(0, 1)$. Empirical rule: $68.27\\\\%$ within $\\\\mu \\\\pm \\\\sigma$, $95.45\\\\%$ within $\\\\mu \\\\pm 2\\\\sigma$, and $99.73\\\\%$ within $\\\\mu \\\\pm 3\\\\sigma$.",
+      "keyPoints": [
+        "Differentiability Implies Continuity: If $f(x)$ is differentiable at $c$, it is guaranteed continuous at $c$. The converse is NOT true ($f(x) = |x|$ is continuous at $x=0$, but has no derivative at $x=0$).",
+        "L\\'Hôpital\\'s Rule Condition: Applies strictly to indeterminate forms $\\\\frac{0}{0}$ and $\\\\frac{\\\\infty}{\\\\infty}$. Differentiate numerator and denominator separately until an evaluated value is attained.",
+        "Rolle\\'s Theorem Condition: Requires continuity on $[a,b]$, differentiability on $(a,b)$, AND $f(a) = f(b)$. Guarantees at least one point where $f'(c) = 0$.",
+        "Lagrange\\'s MVT Formula: $f'(c) = \\\\frac{f(b) - f(a)}{b - a}$ for some $c \\\\in (a,b)$. Geometrically, the tangent at $c$ is parallel to the secant line connecting $(a, f(a))$ and $(b, f(b))$.",
+        "Definite Integral Odd Symmetry: For any odd function ($f(-x) = -f(x)$), $\\\\int_{-a}^a f(x) \\\\, dx = 0$. For even function ($f(-x) = f(x)$), $\\\\int_{-a}^a f(x) \\\\, dx = 2 \\\\int_0^a f(x) \\\\, dx$.",
+        "Variance Linear Transformation: $\\\\text{Var}(aX + b) = a^2 \\\\text{Var}(X)$. A constant shift $b$ never affects the variance or standard deviation.",
+        "Independent Events Probability: Events $A$ and $B$ are independent $\\\\iff P(A \\\\cap B) = P(A) P(B)$. Contrast: for mutually exclusive events, $P(A \\\\cap B) = 0$.",
+        "Bayes\\' Theorem Structure: Updates prior probability $P(B_j)$ to posterior probability $P(B_j \\\\mid A) = \\\\frac{P(A \\\\mid B_j) P(B_j)}{P(A)}$.",
+        "Poisson Equivalence: In a Poisson distribution, $\\\\text{Mean} = \\\\text{Variance} = \\\\lambda$. Standard deviation is $\\\\sqrt{\\\\lambda}$.",
+        "Normal Distribution Symmetry: The curve is bell-shaped and symmetric about the mean $\\\\mu$ (Mean $=$ Median $=$ Mode). $P(X > \\\\mu) = P(X < \\\\mu) = 0.5$."
+      ],
+      "tables": [
+        {
+          "caption": "Summary: Common Standard Probability Distributions",
+          "headers": [
+            "Distribution",
+            "Type",
+            "PMF / PDF Formula",
+            "Mean ($E[X]$)",
+            "Variance ($\\text{Var}(X)$)",
+            "Key Property"
+          ],
+          "rows": [
+            [
+              "Binomial $\\\\mathcal{B}(n, p)$",
+              "Discrete",
+              "$\\\\binom{n}{k} p^k (1-p)^{n-k}$",
+              "$np$",
+              "$np(1-p)$",
+              "$\\\\text{Variance} < \\\\text{Mean}$ always"
+            ],
+            [
+              "Poisson $\\\\mathcal{P}(\\\\lambda)$",
+              "Discrete",
+              "$\\\\frac{e^{-\\\\lambda} \\\\lambda^k}{k!}$",
+              "$\\\\lambda$",
+              "$\\\\lambda$",
+              "$\\\\text{Mean} = \\\\text{Variance} = \\\\lambda$"
+            ],
+            [
+              "Continuous Uniform $\\\\mathcal{U}(a, b)$",
+              "Continuous",
+              "$\\\\frac{1}{b - a}$ ($a \\\\le x \\\\le b$)",
+              "$\\\\frac{a + b}{2}$",
+              "$\\\\frac{(b - a)^2}{12}$",
+              "Constant probability density"
+            ],
+            [
+              "Normal $\\\\mathcal{N}(\\\\mu, \\\\sigma^2)$",
+              "Continuous",
+              "$\\\\frac{1}{\\\\sigma \\\\sqrt{2\\\\pi}} e^{-\\\\frac{(x-\\\\mu)^2}{2\\\\sigma^2}}$",
+              "$\\\\mu$",
+              "$\\\\sigma^2$",
+              "Symmetric bell curve; Mean $=$ Median $=$ Mode"
+            ],
+            [
+              "Exponential $\\\\text{Exp}(\\\\lambda)$",
+              "Continuous",
+              "$\\\\lambda e^{-\\\\lambda x}$ ($x \\\\ge 0$)",
+              "$\\\\frac{1}{\\\\lambda}$",
+              "$\\\\frac{1}{\\\\lambda^2}$",
+              "Memoryless continuous property"
+            ]
+          ]
+        },
+        {
+          "caption": "Comparison: Mean Value Theorems and Integral Symmetry Rules",
+          "headers": [
+            "Theorem / Rule",
+            "Preconditions",
+            "Mathematical Conclusion",
+            "Standard Exam Use"
+          ],
+          "rows": [
+            [
+              "Rolle\\'s Theorem",
+              "Cont. on $[a,b]$, diff. on $(a,b)$, $f(a) = f(b)$",
+              "$\\\\exists c \\\\in (a,b)$ with $f'(c) = 0$",
+              "Finding horizontal tangents / stationary roots"
+            ],
+            [
+              "Lagrange\\'s MVT",
+              "Cont. on $[a,b]$, diff. on $(a,b)$",
+              "$\\\\exists c \\\\in (a,b)$ with $f'(c) = \\\\frac{f(b) - f(a)}{b - a}$",
+              "Relating average rate of change to instant slope"
+            ],
+            [
+              "Cauchy\\'s MVT",
+              "$f, g$ cont. on $[a,b]$, diff. on $(a,b)$, $g'(x) \\\\ne 0$",
+              "$\\\\frac{f'(c)}{g'(c)} = \\\\frac{f(b) - f(a)}{g(b) - g(a)}$",
+              "Proving L\\'Hôpital\\'s Rule analytically"
+            ],
+            [
+              "Odd Function Integral",
+              "$f(-x) = -f(x)$ on symmetric $[-a, a]$",
+              "$\\\\int_{-a}^a f(x) \\\\, dx = 0$",
+              "Instant cancellation of polynomial / trig terms"
+            ],
+            [
+              "Even Function Integral",
+              "$f(-x) = f(x)$ on symmetric $[-a, a]$",
+              "$\\\\int_{-a}^a f(x) \\\\, dx = 2 \\\\int_0^a f(x) \\\\, dx$",
+              "Simplifying symmetric area calculations"
+            ]
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "question": "Evaluate the limit: $\\\\lim_{x \\\\to 0} \\\\frac{\\\\tan 2x - 2x}{x^3}$.",
+          "steps": [
+            "Step 1: Check form at $x = 0$: $\\\\frac{\\\\tan 0 - 0}{0^3} = \\\\frac{0}{0}$ (indeterminate form; apply L\\'Hôpital\\'s Rule).",
+            "Step 2: Differentiate numerator and denominator: $\\\\lim_{x \\\\to 0} \\\\frac{2\\\\sec^2 2x - 2}{3x^2} = \\\\lim_{x \\\\to 0} \\\\frac{2(\\\\sec^2 2x - 1)}{3x^2} = \\\\lim_{x \\\\to 0} \\\\frac{2\\\\tan^2 2x}{3x^2}$.",
+            "Step 3: Rewrite using standard limit $\\\\lim_{x \\\\to 0} \\\\frac{\\\\tan 2x}{2x} = 1$: $\\\\frac{2}{3} \\\\times \\\\left(\\\\frac{\\\\tan 2x}{x}\\\\right)^2 = \\\\frac{2}{3} \\\\times 2^2 = \\\\frac{8}{3}$."
+          ],
+          "answer": "The limit evaluates to $\\\\frac{8}{3}$."
+        },
+        {
+          "question": "Find the value of the definite integral: $\\\\int_{-1}^1 (x^7 + 5x^3 - \\\\sin x + 3x^2) \\\\, dx$.",
+          "steps": [
+            "Step 1: Decompose the integrand into odd and even components: $f_{\\\\text{odd}}(x) = x^7 + 5x^3 - \\\\sin x$ and $f_{\\\\text{even}}(x) = 3x^2$.",
+            "Step 2: Apply the odd function symmetry rule on $[-1, 1]$: $\\\\int_{-1}^1 (x^7 + 5x^3 - \\\\sin x) \\\\, dx = 0$.",
+            "Step 3: Evaluate the even function component: $\\\\int_{-1}^1 3x^2 \\\\, dx = 2 \\\\int_0^1 3x^2 \\\\, dx = 2 [x^3]_0^1 = 2(1 - 0) = 2$."
+          ],
+          "answer": "The integral evaluates to $2$."
+        },
+        {
+          "question": "In a testing lab, $99\\\\%$ of true cases test positive, while $5\\\\%$ of non-cases produce false positives. If the true prevalence in the population is $1\\\\%$, what is the probability that a person who tests positive actually has the condition?",
+          "steps": [
+            "Step 1: Define events: $C$ = condition present ($P(C) = 0.01$, $P(C^c) = 0.99$), $T$ = tests positive ($P(T \\\\mid C) = 0.99$, $P(T \\\\mid C^c) = 0.05$).",
+            "Step 2: Calculate total probability of testing positive: $P(T) = P(T \\\\mid C)P(C) + P(T \\\\mid C^c)P(C^c) = (0.99 \\\\times 0.01) + (0.05 \\\\times 0.99) = 0.0099 + 0.0495 = 0.0594$.",
+            "Step 3: Apply Bayes\\' theorem: $P(C \\\\mid T) = \\\\frac{P(T \\\\mid C)P(C)}{P(T)} = \\\\frac{0.0099}{0.0594} = \\\\frac{99}{594} = \\\\frac{1}{6} \\\\approx 16.67\\\\%$."
+          ],
+          "answer": "The posterior probability is $\\\\frac{1}{6}$ (or approximately $16.67\\\\%$)."
+        }
+      ],
+      "traps": [
+        "Trap 1 (Variance Scaling Square Rule): Remember that $\\\\text{Var}(aX + b) = a^2 \\\\text{Var}(X)$, NOT $a \\\\text{Var}(X)$. A scalar multiplier is always squared. For standard deviation, $\\\\sigma(aX + b) = |a| \\\\sigma(X)$. Adding constant $b$ has zero effect on spread.",
+        "Trap 2 (Poisson Parameter Equality): For a Poisson distribution, $\\\\text{Mean} = \\\\text{Variance} = \\\\lambda$. If an exam problem states that mean is $4$, then variance is $4$, and standard deviation is $\\\\sqrt{4} = 2$. Do not confuse variance with standard deviation.",
+        "Trap 3 (Continuity vs Differentiability Implication): Differentiability $\\\\implies$ Continuity, but Continuity $\\\\not\\\\implies$ Differentiability. A function with a sharp corner or cusp (such as $y = |x|$ or $y = x^{2/3}$ at $x=0$) is continuous everywhere but not differentiable at the corner.",
+        "Trap 4 (Second Derivative Test Inconclusive State): If $f'(c) = 0$ and $f''(c) = 0$, the test is INCONCLUSIVE. The point could be a local minimum ($y = x^4$ at $x=0$), a local maximum ($y = -x^4$ at $x=0$), or an inflection point ($y = x^3$ at $x=0$).",
+        "Trap 5 (Normal Curve Symmetry and Area): The normal curve is symmetric around $\\\\mu$. Exactly $50\\\\%$ of the data lies above $\\\\mu$ and $50\\\\%$ below $\\\\mu$ ($P(X > \\\\mu) = 0.5$). Do not confuse the standard normal percentile with standard deviation interval bounds."
+      ],
+      "practice": [
+        {
+          "q": "Evaluate the limit: $\\\\lim_{x \\\\to 0} \\\\frac{e^{3x} - 1}{2x}$.",
+          "options": [
+            "$\\\\frac{3}{2}$",
+            "$1$",
+            "$\\\\frac{2}{3}$",
+            "$0$"
+          ],
+          "answer": 0,
+          "why": "Using L\\'Hôpital\\'s Rule for the $\\\\frac{0}{0}$ form: differentiate the numerator ($3e^{3x}$) and denominator ($2$) with respect to $x$: $\\\\lim_{x \\\\to 0} \\\\frac{3e^{3x}}{2} = \\\\frac{3(1)}{2} = \\\\frac{3}{2}$."
+        },
+        {
+          "q": "What is the value of the definite integral $\\\\int_{-2}^{2} (x^5 + 3x^3 - \\\\sin x + 4) \\\\, dx$?",
+          "options": [
+            "$0$",
+            "$16$",
+            "$8$",
+            "$32$"
+          ],
+          "answer": 1,
+          "why": "The terms $x^5$, $3x^3$, and $-\\\\sin x$ are all odd functions ($f(-x) = -f(x)$), so their integrals over the symmetric interval $[-2, 2]$ evaluate to $0$. The constant $4$ is an even function: $\\\\int_{-2}^2 4 \\\\, dx = 2 \\\\int_0^2 4 \\\\, dx = 2 [4x]_0^2 = 2(8) = 16$."
+        },
+        {
+          "q": "If a discrete random variable $X$ follows a Poisson distribution such that $P(X = 1) = P(X = 2)$, what is the variance of $X$?",
+          "options": [
+            "$1$",
+            "$4$",
+            "$2$",
+            "$\\\\sqrt{2}$"
+          ],
+          "answer": 2,
+          "why": "For a Poisson distribution, $P(X = k) = \\\\frac{e^{-\\\\lambda} \\\\lambda^k}{k!}$. Equating $P(X=1) = P(X=2) \\\\implies \\\\frac{e^{-\\\\lambda} \\\\lambda^1}{1!} = \\\\frac{e^{-\\\\lambda} \\\\lambda^2}{2!} \\\\implies \\\\lambda = \\\\frac{\\\\lambda^2}{2} \\\\implies \\\\lambda = 2$. In any Poisson distribution, $\\\\text{Variance} = \\\\lambda = 2$."
+        },
+        {
+          "q": "Let $X$ be a random variable with mean $E[X] = 10$ and variance $\\\\text{Var}(X) = 4$. What is the variance of the transformed variable $Y = 3X - 7$?",
+          "options": [
+            "$5$",
+            "$12$",
+            "$23$",
+            "$36$"
+          ],
+          "answer": 3,
+          "why": "By the properties of variance, $\\\\text{Var}(aX + b) = a^2 \\\\text{Var}(X)$. Here $a = 3$ and $b = -7$, so $\\\\text{Var}(3X - 7) = 3^2 \\\\text{Var}(X) = 9 \\\\times 4 = 36$."
+        },
+        {
+          "q": "For the function $f(x) = x^2$ on the interval $[1, 3]$, find the value of $c \\\\in (1, 3)$ that satisfies Lagrange\\'s Mean Value Theorem.",
+          "options": [
+            "$1.5$",
+            "$2$",
+            "$2.5$",
+            "$\\\\sqrt{3}$"
+          ],
+          "answer": 1,
+          "why": "Lagrange\\'s MVT states $f'(c) = \\\\frac{f(b) - f(a)}{b - a}$. Here $f'(x) = 2x$, $a = 1, b = 3$. So $f'(c) = \\\\frac{3^2 - 1^2}{3 - 1} = \\\\frac{9 - 1}{2} = 4$. Therefore, $2c = 4 \\\\implies c = 2 \\\\in (1, 3)$."
+        },
+        {
+          "q": "A factory has two machines: Machine A produces $60\\\\%$ of daily output with a $2\\\\%$ defect rate; Machine B produces $40\\\\%$ of daily output with a $4\\\\%$ defect rate. An item chosen at random is found to be defective. What is the probability that it was produced by Machine B?",
+          "options": [
+            "$\\\\frac{1}{3}$",
+            "$\\\\frac{3}{7}$",
+            "$\\\\frac{4}{7}$",
+            "$\\\\frac{1}{2}$"
+          ],
+          "answer": 2,
+          "why": "By Bayes\\' theorem: $P(B \\\\mid D) = \\\\frac{P(D \\\\mid B) P(B)}{P(D \\\\mid A) P(A) + P(D \\\\mid B) P(B)} = \\\\frac{0.04 \\\\times 0.40}{(0.02 \\\\times 0.60) + (0.04 \\\\times 0.40)} = \\\\frac{0.016}{0.012 + 0.016} = \\\\frac{0.016}{0.028} = \\\\frac{16}{28} = \\\\frac{4}{7}$."
+        },
+        {
+          "q": "At which point does the function $f(x) = 2x^3 - 3x^2 - 12x + 5$ attain its local maximum?",
+          "options": [
+            "$x = -1$",
+            "$x = 2$",
+            "$x = 0$",
+            "$x = 1$"
+          ],
+          "answer": 0,
+          "why": "First derivative: $f'(x) = 6x^2 - 6x - 12 = 6(x^2 - x - 2) = 6(x - 2)(x + 1) = 0 \\\\implies x = 2, -1$. Second derivative: $f''(x) = 12x - 6$. At $x = -1$: $f''(-1) = -12 - 6 = -18 < 0$ (Local Maximum). At $x = 2$: $f''(2) = 24 - 6 = 18 > 0$ (Local Minimum). Thus, the local maximum is at $x = -1$."
+        },
+        {
+          "q": "Let $X$ be a normally distributed random variable with mean $\\\\mu = 50$ and standard deviation $\\\\sigma = 10$. What is the probability $P(X > 50)$?",
+          "options": [
+            "$0$",
+            "$0.3413$",
+            "$0.6826$",
+            "$0.5$"
+          ],
+          "answer": 3,
+          "why": "The Normal distribution is perfectly symmetric about its mean $\\\\mu$. Since the total area under the probability density curve is $1$, exactly half the distribution lies to the right of the mean: $P(X > \\\\mu) = 0.5$."
+        }
+      ]
     }
   ]
 };
