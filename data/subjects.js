@@ -17,7 +17,7 @@ window.SUBJECTS_MANIFEST = [
         "id": "eng-math-graph-theory",
         "title": "Graph Theory",
         "syllabus": "Connectivity, matching, vertex/edge coloring, planarity, isomorphism, Euler and Hamiltonian paths.",
-        "status": "pending"
+        "status": "done"
       },
       {
         "id": "eng-math-linear-algebra",
