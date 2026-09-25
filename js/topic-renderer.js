@@ -255,7 +255,7 @@
           <div class="hero-top-row">
             <nav class="breadcrumb-nav" aria-label="Breadcrumb">
               <ul class="breadcrumb-list">
-                <li class="breadcrumb-item"><a href="index.html">🏠 Home</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Subjects</a></li>
                 <li class="breadcrumb-separator">/</li>
                 <li class="breadcrumb-item"><a href="subject.html?id=${subject.id}">${subject.title}</a></li>
                 <li class="breadcrumb-separator">/</li>
@@ -273,7 +273,7 @@
           <div class="hero-main-row">
             <div class="hero-title-area">
               <div class="hero-badge-strip">
-                <span class="status-badge ready">● Ready to Revise</span>
+                <span class="status-badge ready">Ready</span>
                 <span class="subject-tag-badge">${subject.icon || '📚'} ${subject.title}</span>
                 <span id="hero-revised-pill" class="revised-pill ${isRevised ? 'active' : ''}">${isRevised ? '✓ Revised' : '○ Unrevised'}</span>
               </div>

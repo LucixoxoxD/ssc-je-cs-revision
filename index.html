@@ -205,13 +205,14 @@
         grid.innerHTML = subjects.map(sub => {
           const subProgress = window.StorageManager.getSubjectProgress(sub.id, sub.topics);
           const orderStr = String(sub.order).padStart(2, '0');
+          const topicCount = sub.topics ? sub.topics.length : 0;
 
           return `
             <article class="subject-card">
               <div>
                 <div class="subject-card-header">
                   <div class="subject-icon-box" aria-hidden="true">${sub.icon || '📚'}</div>
-                  <span class="subject-order-pill">Subject #${orderStr}</span>
+                  <span class="subject-order-pill">#${orderStr} • ${topicCount} Topics</span>
                 </div>
                 <div class="subject-card-body">
                   <h3 class="subject-title">${sub.title}</h3>
@@ -228,8 +229,8 @@
                   <div class="subject-progress-fill" style="width: ${subProgress.percent}%;"></div>
                 </div>
                 <a href="subject.html?id=${sub.id}" class="btn-open-subject">
-                  <span>View Syllabus (${sub.topics ? sub.topics.length : 0} Topics)</span>
-                  <span>→</span>
+                  <span>Open Subject Revision</span>
+                  <span class="arrow-icon">→</span>
                 </a>
               </div>
             </article>

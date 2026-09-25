@@ -65,7 +65,7 @@
       <!-- Breadcrumb Navigation -->
       <nav class="breadcrumb-nav" aria-label="Breadcrumb">
         <ul class="breadcrumb-list">
-          <li class="breadcrumb-item"><a href="index.html">🏠 Home</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Subjects</a></li>
           <li class="breadcrumb-separator">/</li>
           <li class="breadcrumb-current">Bookmarks</li>
         </ul>
@@ -138,8 +138,9 @@
               <p class="empty-state-desc">
                 When studying syllabus topics, click the <strong>Bookmark (☆)</strong> button to pin formulas and revision notes here for quick access before your exam.
               </p>
-              <a href="index.html" class="nav-btn" style="background-color: var(--primary); color: #ffffff; border-color: var(--primary);">
-                Explore All 9 Subjects
+              <a href="index.html" class="btn-study-action">
+                <span>Explore All 9 Subjects</span>
+                <span class="arrow">→</span>
               </a>
             </div>
           `;
@@ -176,8 +177,9 @@
                   <span>${isRevised ? 'Revised ✓' : 'Mark revised'}</span>
                 </label>
 
-                <a href="${topicUrl}" class="nav-btn" style="padding: 0.4rem 0.75rem; font-size: 0.85rem;">
-                  Open Topic →
+                <a href="${topicUrl}" class="btn-study-action">
+                  <span>Open Topic</span>
+                  <span class="arrow">→</span>
                 </a>
 
                 <button 

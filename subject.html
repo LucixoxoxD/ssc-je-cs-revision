@@ -157,7 +157,7 @@
           <!-- Breadcrumb Navigation -->
           <nav class="breadcrumb-nav" aria-label="Breadcrumb">
             <ul class="breadcrumb-list">
-              <li class="breadcrumb-item"><a href="index.html">🏠 Home</a></li>
+              <li class="breadcrumb-item"><a href="index.html">Subjects</a></li>
               <li class="breadcrumb-separator">/</li>
               <li class="breadcrumb-current">${subject.title}</li>
             </ul>
@@ -167,15 +167,17 @@
           <section class="subject-banner">
             <div class="subject-banner-top">
               <div class="subject-banner-icon" aria-hidden="true">${subject.icon || '📚'}</div>
-              <div>
-                <span class="subject-order-pill" style="margin-bottom: 0.5rem; display: inline-block;">Subject #${orderStr}</span>
+              <div class="subject-banner-content">
+                <div class="subject-banner-meta">
+                  <span class="subject-order-pill">Subject #${orderStr}</span>
+                </div>
                 <h1 class="subject-banner-title">${subject.title}</h1>
                 <p class="subject-banner-desc">${subject.description || ''}</p>
               </div>
             </div>
 
             <!-- Subject Progress Bar -->
-            <div class="overall-progress-card" style="padding: 1rem 1.25rem;">
+            <div class="overall-progress-card" style="padding: 1.15rem 1.4rem;">
               <div class="progress-header">
                 <span class="progress-label" style="font-size: 0.875rem;">
                   <span>📊</span> Subject Revision Progress
@@ -192,7 +194,7 @@
           <section aria-labelledby="topics-heading">
             <div class="section-title-wrap">
               <h2 id="topics-heading" class="section-title">Syllabus Topics (${subject.topics ? subject.topics.length : 0})</h2>
-              <span class="section-subtext">Order of Study</span>
+              <span class="section-subtext">Official Exam Scope</span>
             </div>
 
             <div class="topics-list-container">
@@ -208,17 +210,16 @@
                     <div class="topic-item-left">
                       <div class="topic-index-badge">${topicIndexStr}</div>
                       <div class="topic-item-meta">
-                        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                        <div class="topic-item-title-row">
                           <a href="${topicUrl}" class="topic-item-title-link">
                             <span>${topic.title}</span>
-                            ${isReady ? '<span style="font-size: 0.8rem; color: var(--primary);">→</span>' : ''}
                           </a>
                           <span class="status-badge ${isReady ? 'ready' : 'coming-soon'}">
-                            ${isReady ? '● Ready to Revise' : 'Pending'}
+                            ${isReady ? 'Ready' : 'Pending'}
                           </span>
                         </div>
                         ${topic.syllabus ? `
-                          <p class="topic-item-syllabus" style="font-size: 0.825rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">
+                          <p class="topic-item-syllabus">
                             ${escapeHtml(topic.syllabus)}
                           </p>
                         ` : ''}
@@ -250,8 +251,9 @@
                         ${isBookmarked ? '★' : '☆'}
                       </button>
 
-                      <a href="${topicUrl}" class="nav-btn" style="padding: 0.4rem 0.75rem; font-size: 0.85rem;">
-                        ${isReady ? 'Study' : 'View'}
+                      <a href="${topicUrl}" class="btn-study-action">
+                        <span>${isReady ? 'Revise' : 'View'}</span>
+                        <span class="arrow">→</span>
                       </a>
                     </div>
                   </article>
